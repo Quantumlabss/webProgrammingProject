@@ -1,1 +1,169 @@
-nerd
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Raleway", sans-serif;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logoImg {
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+    background-color: black;
+    margin: 20px 10px 10px 70px;
+}
+
+.searchBar {
+    margin-top: 20px;
+    border: 1px solid black;
+    width: 30%;
+    height: 50px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+}
+
+.searchBar input {
+    width: 95%;
+    height: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+}
+
+.searchBar input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.searchBar i {
+    color: gray;
+    font-size: 23px;
+    margin-right: 5px;
+}
+
+.searchBar:hover {
+    cursor: pointer;
+    transition: 0.3s ease;
+    background-color: rgb(225, 225, 229);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.searchBar i:hover {
+    transition: 0.3s ease;
+    color: black;
+}
+
+.profileSpace {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin-top: 20px;
+    margin-right: 70px;
+    width: 6%;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 25px;
+}
+
+.profileSpace i {
+    color: gray;
+    font-size: 25px;
+    cursor: pointer; 
+    transition: 0.3s;
+}
+
+.profileSpace:hover {
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.profileSpace i:hover {
+    color: black;
+}
+
+.rentOptions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 100%;
+    margin-top: 30px;
+}
+
+.containerOptions {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.letter span {
+    font-size: 15px;
+}
+
+.icons span {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+}
+
+.icons span i {
+    color: gray;
+    font-size: 25px;
+}
+
+.icons {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.icons:hover i {
+    transition: 0.5s ease;
+    color: black;
+}
+
+.letter span {
+    display: inline-block;
+    position: relative;
+}
+
+.letter span::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: black; 
+    transition: width 0.3s ease-in-out; 
+}
+
+.icons span:hover .letter span::after {
+    width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
