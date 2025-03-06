@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\css",
+    "\\js"
   ],
-  "SelectedNode": "\\.gitignore",
+  "SelectedNode": "\\README.md",
   "PreviewInSolutionExplorer": false
 }
