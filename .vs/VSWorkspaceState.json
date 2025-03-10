@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\css",
-    "\\js"
+    "\\js",
+    "\\pages"
   ],
-  "SelectedNode": "\\main.html",
+  "SelectedNode": "\\js\\login.js",
   "PreviewInSolutionExplorer": false
 }
