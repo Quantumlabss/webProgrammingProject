@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\js\\login.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\js\\login.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:js\\login.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:login.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:js\\script.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\css\\main.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -30,8 +38,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "login.html",
+              "DocumentMoniker": "C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\login.html",
+              "RelativeDocumentMoniker": "login.html",
+              "ToolTip": "C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\login.html",
+              "RelativeToolTip": "login.html",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAABgAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-03-12T17:09:46.266Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
@@ -46,20 +67,33 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "login.css",
+              "DocumentMoniker": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\css\\login.css",
+              "RelativeDocumentMoniker": "css\\login.css",
+              "ToolTip": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\css\\login.css",
+              "RelativeToolTip": "css\\login.css",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAD8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-03-12T17:09:37.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "login.js",
-              "DocumentMoniker": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\js\\login.js",
+              "DocumentMoniker": "C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\js\\login.js",
               "RelativeDocumentMoniker": "js\\login.js",
-              "ToolTip": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\js\\login.js",
+              "ToolTip": "C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\js\\login.js",
               "RelativeToolTip": "js\\login.js",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-03-08T16:16:08.865Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "script.js",
               "DocumentMoniker": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\js\\script.js",
               "RelativeDocumentMoniker": "js\\script.js",
@@ -67,12 +101,11 @@
               "RelativeToolTip": "js\\script.js",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-02-10T17:46:58.019Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T17:46:58.019Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "main.css",
               "DocumentMoniker": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\css\\main.css",
               "RelativeDocumentMoniker": "css\\main.css",
@@ -80,12 +113,11 @@
               "RelativeToolTip": "css\\main.css",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-02-10T17:46:43.392Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T17:46:43.392Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": ".gitignore",
               "DocumentMoniker": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\.gitignore",
               "RelativeDocumentMoniker": ".gitignore",
@@ -93,18 +125,17 @@
               "RelativeToolTip": ".gitignore",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2025-02-09T00:49:50.09Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-09T00:49:50.09Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "index.html",
-              "DocumentMoniker": "C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\index.html",
+              "DocumentMoniker": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\index.html",
               "RelativeDocumentMoniker": "index.html",
-              "ToolTip": "C:\\Users\\alexs\\Source\\Repos\\Quantumlabss\\webProgrammingProject\\index.html",
+              "ToolTip": "C:\\Users\\alexs\\source\\repos\\Quantumlabss\\webProgrammingProject\\index.html",
               "RelativeToolTip": "index.html",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAHAAAA",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAAAAYAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
               "WhenOpened": "2025-02-07T00:28:31.449Z",
               "EditorCaption": ""

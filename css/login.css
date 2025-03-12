@@ -1,0 +1,63 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+/* Popup Box */
+.popup {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #fdfaf2;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    position: relative;
+}
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+/* Input Fields */
+.input-field {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+/* Buttons */
+.login-btn, .signup-btn {
+    width: 95%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    background-color: #b0c4de;
+    color: black;
+}
+
+    .login-btn:hover, .signup-btn:hover {
+        background-color: #8aa3c0;
+    }
