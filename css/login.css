@@ -10,6 +10,7 @@ body {
 }
 /* Popup Box */
 .popup {
+    display: none;
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
     width: 100%;
