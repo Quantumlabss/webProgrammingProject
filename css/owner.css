@@ -87,71 +87,49 @@
     color: black;
 }
 
-.rentOptions {
+.addBtn {
     display: flex;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    height: 60px;
-    width: 100%;
+}
+
+.studioBtn button {
     margin-top: 30px;
-}
-
-.containerOptions {
-    display: flex;
-    flex-direction: row;
-    gap: 60px;
-}
-
-.letter span {
-    font-size: 15px;
-}
-
-.icons span {
-    display: flex;
-    gap: 10px;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-}
-
-.icons span i {
-    color: gray;
-    font-size: 25px;
-}
-
-.icons {
-    display: flex;
+    padding: 10px 20px;
+    background-color: #b0c4de;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    color: #fff;
     cursor: pointer;
-    align-items: center;
-    transition: transform 0.3s ease-in-out;
+    transition: background 0.2s ease-in-out;
 }
 
-.icons:hover i {
-    transition: 0.5s ease;
+.studioBtn button:hover {
+    background-color: #8aa3c0;
+}
+
+.studioBtn button:active {
+    background-color: #6b849e;
+}
+.addBtn {
+    display: flex;
+    justify-content: center;
+}
+
+.studioBtn button {
+    padding: 15px;
+    border: none;
+    border-radius: 20px;
+    font-size: medium;
+    cursor: pointer;
+    background-color: #b0c4de;
     color: black;
 }
 
-.letter span {
-    display: inline-block;
-    position: relative;
+.studioBtn button:hover {
+    background-color: #8aa3c0;
 }
-
-.letter span::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0%;
-    height: 2px;
-    background-color: black; 
-    transition: width 0.3s ease-in-out; 
-}
-
-.icons span:hover .letter span::after {
-    width: 100%;
-}
+/*Profile area*/
 
 .popup {
     position: fixed;
@@ -217,19 +195,77 @@
 }
 
 
+/*Add studio area */
 
+.studioContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 9999;
+}
 
+.studioContainer.show {
+    display: flex; /* Mostra a div */
+    opacity: 1;
+}
 
+.studioArea {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 350px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+}
 
+/* Close Button */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+/* Input Fields */
+.input-field {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
 
+.addStudio {
+    width: 95%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    background-color: #b0c4de;
+    color: black;
+}
 
+.addStudio:hover {
+    background-color: #8aa3c0;
+}
 
-
-
-
-
-
-
-
-
+#parking, #publicTransport, #rentalTerm {
+    margin: 10px 0;
+    text-align: center;
+    text-indent: 10px; 
+    height: 25px;
+    width: 95%;
+}
 
