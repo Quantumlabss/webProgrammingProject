@@ -1,4 +1,93 @@
 document.addEventListener("DOMContentLoaded", function () {
+    const popup = document.querySelector(".popup");
+    const userIcon = document.querySelector(".bxs-user-circle");
+    const closeBtn = document.querySelector(".close");
+
+    if (!popup || !userIcon || !closeBtn) {
+        return;
+    }
+
+    userIcon.addEventListener("click", function () {
+        popup.style.display = "flex";
+        setTimeout(() => popup.classList.add("show"), 10);
+    });
+
+    closeBtn.addEventListener("click", function () {
+        popup.classList.remove("show");
+        setTimeout(() => popup.style.display = "none", 300);
+    });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+    const popup = document.querySelector(".popup");
+    const closeBtn = document.querySelector(".close");
+    const loginBtn = document.querySelector(".login-btn");
+    const signupBtn = document.querySelector(".signup-btn");
+    const errorDisplay = document.createElement("p");
+    errorDisplay.className = "error-message";
+    document.querySelector(".popup-content").appendChild(errorDisplay);
+
+    closeBtn.addEventListener("click", () => {
+        popup.style.display = "none";
+    });
+
+    loginBtn.addEventListener("click", () => {
+        const email = document.querySelector(".popup-content input[type='email']").value.trim();
+
+        if (!validateEmail(email)) {
+            showError("Please enter a valid email address for login.");
+            return;
+        }
+
+        const savedAccount = getCookie("account");
+        if (savedAccount && JSON.parse(savedAccount).email === email) {
+            alert(`Login successful for email: ${email}`);
+            popup.style.display = "none";
+        } else {
+            showError("Account not found. Please sign up.");
+        }
+    });
+
+    signupBtn.addEventListener("click", () => {
+        const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
+        const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
+        const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
+
+        if (!name || !phone || !validateEmail(email)) {
+            showError("Please fill in all fields with valid information.");
+            return;
+        }
+
+        const accountData = JSON.stringify({ name, phone, email });
+        setCookie("account", accountData, 7);
+
+        alert(`Signup successful for: ${name}`);
+        popup.style.display = "none";
+    });
+
+    function showError(message) {
+        errorDisplay.textContent = message;
+    }
+
+    function validateEmail(email) {
+        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        return regex.test(email);
+    }
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(";").shift();
+        return null;
+    }
+
+    function setCookie(name, value, days) {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
     const addStudioBtn = document.querySelector(".studioBtn button"); // "Add New Studio" button
     const studioContainer = document.querySelector(".studioContainer"); // Popup container
     const closeBtn = studioContainer.querySelector(".close"); // Close button
