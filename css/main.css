@@ -212,9 +212,9 @@
     color: black;
 }
 
-    .login-btn:hover, .signup-btn:hover {
-        background-color: #8aa3c0;
-    }
+.login-btn:hover, .signup-btn:hover {
+    background-color: #8aa3c0;
+}
 
 
 
