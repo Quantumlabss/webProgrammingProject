@@ -34,6 +34,47 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
+    signupBtn.addEventListener("click", () => {
+        const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
+        const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
+        const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
+        const userTypeElement = document.querySelector(".popup-content input[name='userType']:checked");
+
+        if (!name || !phone || !validateEmail(email) || !userTypeElement) {
+            showError("Please fill in all fields with valid information and select your user type.");
+            return;
+        }
+
+        const accountData = {
+            name,
+            phone,
+            email,
+            userType: userTypeElement.value
+        };
+
+        // Send data to server
+        fetch('/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(accountData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Signup successful for: ${name} (${accountData.userType})`);
+                    popup.style.display = "none";
+                } else {
+                    showError(data.message || "Signup failed.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError("An error occurred. Please try again.");
+            });
+    });
+
     loginBtn.addEventListener("click", () => {
         const email = document.querySelector(".popup-content input[type='email']").value.trim();
 
@@ -42,55 +83,36 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const savedAccount = getCookie("account");
-        if (savedAccount && JSON.parse(savedAccount).email === email) {
-            alert(`Login successful for email: ${email}`);
-            popup.style.display = "none";
-        } else {
-            showError("Account not found. Please sign up.");
-        }
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Login successful for ${data.user.name} (${data.user.userType})`);
+                    popup.style.display = "none";
+                } else {
+                    showError(data.message || "Login failed.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showError("An error occurred. Please try again.");
+            });
     });
-
-    
-    signupBtn.addEventListener("click", () => {
-        const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
-        const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
-        const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
-
-        if (!name || !phone || !validateEmail(email)) {
-            showError("Please fill in all fields with valid information.");
-            return;
-        }
-
-        const accountData = JSON.stringify({ name, phone, email });
-        setCookie("account", accountData, 7); 
-
-        alert(`Signup successful for: ${name}`);
-        popup.style.display = "none";
-    });
-
 
     function showError(message) {
         errorDisplay.textContent = message;
         errorDisplay.style.color = "red";
     }
 
-  
     function validateEmail(email) {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     }
 
- 
-    function setCookie(name, value, days) {
-        const date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = `${name}=${value}; expires=${date.toUTCString()}; path=/`;
-    }
-
-    function getCookie(name) {
-        const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
-        return match ? match[2] : null;
-    }
-});
 
