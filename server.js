@@ -4,60 +4,63 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
+// Middleware to parse JSON data
 app.use(express.json());
-app.use(express.static('public')); // to serve your html, css, js files
 
-const usersFilePath = path.join(__dirname, 'users.json');
-
-// Helper to read users
-function readUsers() {
-    if (!fs.existsSync(usersFilePath)) {
-        return [];
-    }
-    const data = fs.readFileSync(usersFilePath, 'utf-8');
-    return data ? JSON.parse(data) : [];
+// Ensure the /users directory exists
+const usersDir = path.join(__dirname, 'users');
+if (!fs.existsSync(usersDir)) {
+    fs.mkdirSync(usersDir);
 }
 
-// Helper to write users
-function writeUsers(users) {
-    fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-}
+// Serve static files (if you have CSS/JS files in root)
+app.use(express.static(__dirname));
 
-// Signup endpoint
-app.post('/signup', (req, res) => {
-    const { name, phone, email, userType } = req.body;
-    if (!name || !phone || !email || !userType) {
-        return res.json({ success: false, message: "Missing fields." });
-    }
-
-    const users = readUsers();
-    const existingUser = users.find(user => user.email === email);
-    if (existingUser) {
-        return res.json({ success: false, message: "User already exists." });
-    }
-
-    users.push({ name, phone, email, userType });
-    writeUsers(users);
-
-    res.json({ success: true });
+// Serve index.html at the root
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Login endpoint
-app.post('/login', (req, res) => {
-    const { email } = req.body;
-    if (!email) {
-        return res.json({ success: false, message: "Email is required." });
+// Signup route - save user data to a JSON file
+app.post('/signup', (req, res) => {
+    const { name, phone, email, userType } = req.body;
+
+    if (!name || !phone || !email || !userType) {
+        return res.status(400).json({ message: 'Missing required fields.' });
     }
 
-    const users = readUsers();
-    const user = users.find(u => u.email === email);
-    if (user) {
-        res.json({ success: true, user });
-    } else {
-        res.json({ success: false, message: "User not found." });
-    }
+    const safeFileName = email + '.json'; // Using email as filename
+    const filePath = path.join(usersDir, safeFileName);
+
+    const userData = {
+        name,
+        phone,
+        email,
+        userType,
+        createdAt: new Date().toISOString()
+    };
+
+    fs.writeFile(filePath, JSON.stringify(userData, null, 2), (err) => {
+        if (err) {
+            return res.status(500).json({ message: 'Error saving user data.' });
+        }
+        res.json({ message: `Signup successful for: ${name}` });
+    });
+});
+
+// Check if the user exists (GET request)
+app.get('/users/:email', (req, res) => {
+    const { email } = req.params;
+    const filePath = path.join(usersDir, `${email}.json`);
+
+    fs.readFile(filePath, (err, data) => {
+        if (err) {
+            return res.status(404).json({ message: 'User not found.' });
+        }
+        res.status(200).json(JSON.parse(data));
+    });
 });
 
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });
