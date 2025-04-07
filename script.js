@@ -1,5 +1,78 @@
 //-----------------------------------------------------------------------------------------------------------------//
 document.addEventListener("DOMContentLoaded", function () {
+    const filterButtons = document.querySelectorAll('.icons span');
+    const studios = document.querySelectorAll('.storeStudio');
+    const storeTitle = document.querySelector('.storeTitle');  // Captura o h1 com a classe storeTitle
+  
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const filterId = this.id;
+        filterStudios(filterId);
+        updateTitle(filterId);  // Atualiza o texto do título com base no filtro
+      });
+    });
+  
+    function filterStudios(filterId) {
+      studios.forEach(studio => {
+        if (studio.classList.contains(`storeStudio${capitalizeFirstLetter(filterId)}`) || filterId === 'all') {
+          studio.style.display = 'block';
+        } else {
+          studio.style.display = 'none';
+        }
+      });
+    }
+  
+    function updateTitle(filterId) {
+      let titleText = 'Studios';  // Valor padrão para o título
+  
+      switch (filterId) {
+        case 'art':
+          titleText = 'Art Studios';
+          break;
+        case 'game':
+          titleText = 'Gaming Studios';
+          break;
+        case 'msc':
+          titleText = 'Music Studios';
+          break;
+        case 'rec':
+          titleText = 'Recording Studios';
+          break;
+        case 'mask':
+          titleText = 'Rehearsal Studios';
+          break;
+        case 'dmd':
+          titleText = 'Premium Studios';
+          break;
+        case 'all':
+          titleText = 'All Studios';
+          break;
+        default:
+          titleText = 'Studios';  // Caso nenhum filtro seja aplicado
+          break;
+      }
+  
+      storeTitle.textContent = titleText;  // Atualiza o texto do título
+    }
+  
+    function capitalizeFirstLetter(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+  
+    showAllStudios();  // Exibe todos os estúdios ao carregar a página
+  
+    function showAllStudios() {
+      studios.forEach(studio => {
+        studio.style.display = 'block';
+      });
+    }
+  });
+  
+  
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
     
     const storeContainer = document.getElementById('storeContainer'); 
     const loginButton = document.querySelector('.login-btn'); 

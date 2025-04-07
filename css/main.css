@@ -217,7 +217,102 @@
 }
 
 
+/*STORE DISPLAY*/
+.row1container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+}
 
+.storeStudio {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.storeStudio:hover {
+    transform: translateY(-5px);
+}
+
+.storeStudio img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.storeStudio h2 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.storeStudio p {
+    font-weight: bold;
+    color: #2ecc71;
+    margin-bottom: 1rem;
+}
+
+.storeStudio button {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.storeStudio button:hover {
+    background-color: #444;
+}
+
+
+
+.storeStudioArt {
+    background-color: #f4f1f1; 
+    border: 2px solid #e74c3c; 
+}
+
+.storeStudioGame {
+    background-color: #f0f8ff; 
+    border: 2px solid #3498db; 
+}
+
+.storeStudioMsc {
+    background-color: #f9fbe7; 
+    border: 2px solid #f39c12; 
+}
+
+.storeStudioRec {
+    background-color: #f5f5f5; 
+    border: 2px solid #2ecc71; 
+}
+
+.storeStudioMask {
+    background-color: #f3f4f6; 
+    border: 2px solid #9b59b6; 
+}
+
+.storeStudioDmd {
+    background-color: #fdfdfd; 
+    border: 2px solid #8e44ad; 
+}
+
+.storeTitle {
+    text-align: center;
+    justify-content: center;
+    background-color: lightgray;
+    width: 300px;
+    margin-left: 41vw;
+}
+
+
+/*STORE DISPLAY*/
 
 
 
