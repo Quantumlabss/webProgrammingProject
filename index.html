@@ -8,6 +8,62 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="./js/script.js"></script>
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<!--Yes i did that cuz i couldnt find the css XD (temporary, i wll fix it) -->
+<style>
+    .row1container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  
+  .storeStudio {
+    background-color: white;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+  
+  .storeStudio:hover {
+    transform: translateY(-5px);
+  }
+  
+  .storeStudio img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .storeStudio h2 {
+    margin: 1rem 0 0.5rem;
+    font-size: 1.2rem;
+  }
+  
+  .storeStudio p {
+    font-weight: bold;
+    color: #2ecc71;
+    margin-bottom: 1rem;
+  }
+  
+  .storeStudio button {
+    background-color: #111;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .storeStudio button:hover {
+    background-color: #444;
+  }
+  </style>
+
 </head>
 <body>
 <header>
@@ -67,9 +123,53 @@
     </div>
 </div>
 <div class="bigContainer">
-    <div class="studios"></div>
-    <div class="studios"></div>
-    <div class="studios"></div>
+   <!--store display (temporary)-->
+    <div class="row1container">
+        <div class="storeStudio">
+          <img src="https://lh3.googleusercontent.com/p/AF1QipNSDSr50W-fgNeFha3maD-oTdvaDujVzQQiwzZm=s1360-w1360-h1020" 
+          alt="Studio 1" />
+          <h2>Studio 1</h2>
+          <p> $49,90</p>
+          <button> Details </button>
+        </div>
+    
+        <div class="storeStudio">
+          <img src="https://lh3.googleusercontent.com/p/AF1QipNSDSr50W-fgNeFha3maD-oTdvaDujVzQQiwzZm=s1360-w1360-h1020" alt="Studio 2" />
+          <h2>Studio 2</h2>
+          <p>$49,90</p>
+          <button>Details</button>
+        </div>
+    
+        <div class="storeStudio">
+          <img src="https://lh3.googleusercontent.com/p/AF1QipNSDSr50W-fgNeFha3maD-oTdvaDujVzQQiwzZm=s1360-w1360-h1020" alt="Studio 3" />
+          <h2>Studio 3</h2>
+          <p>$49,90</p>
+          <button> Details </button>
+        </div>
+
+        <div class="storeStudio">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipNSDSr50W-fgNeFha3maD-oTdvaDujVzQQiwzZm=s1360-w1360-h1020" 
+            alt="Studio 1" />
+            <h2>Studio 4</h2>
+            <p> $49,90</p>
+            <button> Details </button>
+          </div>
+      
+          <div class="storeStudio">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipNSDSr50W-fgNeFha3maD-oTdvaDujVzQQiwzZm=s1360-w1360-h1020" alt="Studio 2" />
+            <h2>Studio 5</h2>
+            <p>$49,90</p>
+            <button>Details</button>
+          </div>
+      
+          <div class="storeStudio">
+            <img src="https://lh3.googleusercontent.com/p/AF1QipNSDSr50W-fgNeFha3maD-oTdvaDujVzQQiwzZm=s1360-w1360-h1020" alt="Studio 3" />
+            <h2>Studio 6</h2>
+            <p>$49,90</p>
+            <button> Details </button>
+          </div>
+      </div>
+
 </div>
 <div class="popup">
     <div class="popup-content">
