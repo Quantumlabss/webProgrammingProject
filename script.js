@@ -1,3 +1,36 @@
+//-----------------------------------------------------------------------------------------------------------------//
+document.addEventListener("DOMContentLoaded", function () {
+    
+    const storeContainer = document.getElementById('storeContainer'); 
+    const loginButton = document.querySelector('.login-btn'); 
+    const signupButton = document.querySelector('.signup-btn'); 
+
+    
+    let isLoggedIn = false;
+
+    // Função para mostrar a loja se o usuário está logado ou se clicou em Login/Sign Up
+    function showStore() {
+        if (isLoggedIn || (loginButton.clicked || signupButton.clicked)) {
+            storeContainer.style.display = 'grid'; // Exibe a loja
+        } else {
+            storeContainer.style.display = 'none'; // Esconde a loja se não estiver logado
+        }
+    }
+
+    loginButton.addEventListener('click', function () {
+        isLoggedIn = true; 
+        showStore(); 
+    });
+
+    signupButton.addEventListener('click', function () {
+        isLoggedIn = true; 
+        showStore(); 
+    });
+
+    showStore();
+});
+
+//-----------------------------------------------------------------------------------------------------------------//
 document.addEventListener("DOMContentLoaded", function () {
     const popup = document.querySelector(".popup");
     const userIcon = document.querySelector(".bxs-user-circle");
