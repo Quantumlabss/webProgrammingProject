@@ -1,3 +1,44 @@
+// Aguardar até que o DOM esteja completamente carregado
+document.addEventListener("DOMContentLoaded", function () {
+  const signUpBtn = document.getElementById('signUpBtn');
+
+  // Ao clicar no botão de "Sign Up"
+  signUpBtn.addEventListener('click', function (e) {
+      e.preventDefault(); // Prevenir o comportamento padrão (recarregar página)
+
+      // Obter os valores dos campos
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const email = document.getElementById('signupEmail').value;
+      
+      // Verificar qual tipo de usuário foi selecionado
+      const userType = document.querySelector('input[name="userType"]:checked');
+
+      if (!name || !phone || !email || !userType) {
+          alert("Por favor, preencha todos os campos e selecione um tipo de usuário.");
+          return;
+      }
+
+      // Obter o valor do tipo de usuário
+      const userTypeValue = userType.value;
+
+      // Construir a URL para redirecionamento com parâmetros
+      let redirectUrl = '';
+
+      if (userTypeValue === 'studioOwner') {
+          // Se for um proprietário de estúdio
+          redirectUrl = `studioOwnerPage.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
+      } else if (userTypeValue === 'newUser') {
+          // Se for um novo usuário
+          redirectUrl = `newUser.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
+      }
+
+      // Redirecionar para a página correspondente
+      window.location.href = redirectUrl;
+  });
+});
+
+
 //-----------------------------------------------------------------------------------------------------------------//
 document.addEventListener("DOMContentLoaded", function () {
     const filterButtons = document.querySelectorAll('.icons span');
@@ -165,32 +206,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   
     signupBtn.addEventListener('click', () => {
-        const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
-        const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
-        const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
-        const userType = document.querySelector('input[name="userType"]:checked')?.value;
-
-        if (!name || !phone || !validateEmail(email) || !userType) {
-            showError("Please fill in all fields with valid information.");
-            return;
-        }
-
-        
-        const userData = { name, phone, email, userType };
-        fetch('/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(userData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                alert(data.message);
-                popup.style.display = "none";
-            })
-            .catch(err => {
-                showError("Error occurred during signup. Please try again.");
-            });
-    });
+      const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
+      const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
+      const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
+      const userType = document.querySelector('input[name="userType"]:checked')?.value;
+  
+      if (!name || !phone || !validateEmail(email) || !userType) {
+          showError("Please fill in all fields with valid information.");
+          return;
+      }
+  
+      const userData = { name, phone, email, userType };
+  
+      // Primeiro envia os dados para o backend
+      fetch('/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+      })
+      .then(response => response.json())
+      .then(data => {
+          alert(data.message);
+          popup.style.display = "none";
+  
+          // Depois redireciona para a página correspondente com os dados na URL
+          const queryParams = `?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
+  
+          if (userType === "studioOwner") {
+              window.location.href = `studio-owner.html${queryParams}`;
+          } else if (userType === "newUser") {
+              window.location.href = `new-user.html${queryParams}`;
+          }
+      })
+      .catch(err => {
+          showError("Error occurred during signup. Please try again.");
+      });
+  });
+  
 
   
   
