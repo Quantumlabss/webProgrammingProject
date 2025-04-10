@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Owner Page</title>
+</head>
+<body>
+    <h1>Welcome, Studio Owner!</h1>
+
+    <div id="userInfo">
+        <p><strong>Name:</strong> <span id="name"></span></p>
+        <p><strong>Phone:</strong> <span id="phone"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+    </div>
+
+    <script>
+        // Função para obter parâmetros da URL
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Preencher os campos com os dados da URL
+        document.getElementById('name').textContent = getUrlParameter('name');
+        document.getElementById('phone').textContent = getUrlParameter('phone');
+        document.getElementById('email').textContent = getUrlParameter('email');
+    </script>
+</body>
+</html>
