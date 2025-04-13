@@ -352,7 +352,7 @@
     background-color: #8aa3c0;
 }
 
-#parking, #publicTransport, #rentalTerm {
+#parking, #publicTransport, #rentalTerm, #rent {
     margin: 10px 0;
     text-align: center;
     text-indent: 10px; 
