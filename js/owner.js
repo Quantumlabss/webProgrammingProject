@@ -87,6 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
     }
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const addStudioBtn = document.querySelector(".studioBtn button"); // "Add New Studio" button
     const studioContainer = document.querySelector(".studioContainer"); // Popup container
@@ -163,6 +164,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Clear input fields after adding
         document.querySelectorAll(".studioArea input").forEach(input => input.value = "");
+
+        // Send the studio data to the server to be saved
+        const studioData = {
+            studioName,
+            address,
+            area,
+            type,
+            capacity,
+            parking,
+            publicTransport,
+            rentalTerm,
+            price
+        };
+
+        // Send the studio data to the server to save it
+        fetch("/add-studio", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(studioData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Studio saved:", data);
+            })
+            .catch(error => {
+                console.error("Error saving studio:", error);
+            });
 
         // Delete button functionality
         const deleteBtn = studioDiv.querySelector(".deleteStudio");

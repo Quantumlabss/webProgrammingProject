@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const queryParams = `?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
   
           if (userType === "studioOwner") {
-              window.location.href = `studio-owner.html${queryParams}`;
+              window.location.href = `studioOwnerPage.html${queryParams}`;
           } else if (userType === "newUser") {
               window.location.href = `new-user.html${queryParams}`;
           }

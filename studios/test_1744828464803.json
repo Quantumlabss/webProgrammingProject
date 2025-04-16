@@ -1,0 +1,11 @@
+{
+  "studioName": "test",
+  "address": "tesr",
+  "area": "4",
+  "type": "test",
+  "capacity": "1",
+  "parking": "Yes",
+  "publicTransport": "Yes",
+  "rentalTerm": "hour",
+  "price": "111111111"
+}

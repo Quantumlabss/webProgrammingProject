@@ -7,10 +7,10 @@ const PORT = 3000;
 // Middleware to parse JSON data
 app.use(express.json());
 
-// Ensure the /users directory exists
-const usersDir = path.join(__dirname, 'users');
-if (!fs.existsSync(usersDir)) {
-    fs.mkdirSync(usersDir);
+// Ensure the /studios directory exists
+const studiosDir = path.join(__dirname, 'studios');
+if (!fs.existsSync(studiosDir)) {
+    fs.mkdirSync(studiosDir);
 }
 
 // Serve static files (if you have CSS/JS files in root)
@@ -21,43 +21,28 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Signup route - save user data to a JSON file
-app.post('/signup', (req, res) => {
-    const { name, phone, email, userType } = req.body;
+// Add studio route - save studio data to a JSON file
+app.post('/add-studio', (req, res) => {
+    const studio = req.body;
 
-    if (!name || !phone || !email || !userType) {
-        return res.status(400).json({ message: 'Missing required fields.' });
+    // Ensure studio data is received
+    if (!studio || Object.keys(studio).length === 0) {
+        return res.status(400).json({ message: 'Missing studio data.' });
     }
 
-    const safeFileName = email + '.json'; // Using email as filename
-    const filePath = path.join(usersDir, safeFileName);
+    const timestamp = Date.now();
+    const safeName = `${studio.studioName.replace(/[^a-zA-Z0-9]/g, '_')}_${timestamp}.json`;
 
-    const userData = {
-        name,
-        phone,
-        email,
-        userType,
-        createdAt: new Date().toISOString()
-    };
+    const filePath = path.join(studiosDir, safeName);
 
-    fs.writeFile(filePath, JSON.stringify(userData, null, 2), (err) => {
+    // Save the studio data into its own JSON file
+    fs.writeFile(filePath, JSON.stringify(studio, null, 2), (err) => {
         if (err) {
-            return res.status(500).json({ message: 'Error saving user data.' });
+            console.error('Error saving studio:', err);
+            return res.status(500).json({ message: 'Failed to save studio.' });
         }
-        res.json({ message: `Signup successful for: ${name}` });
-    });
-});
 
-// Check if the user exists (GET request)
-app.get('/users/:email', (req, res) => {
-    const { email } = req.params;
-    const filePath = path.join(usersDir, `${email}.json`);
-
-    fs.readFile(filePath, (err, data) => {
-        if (err) {
-            return res.status(404).json({ message: 'User not found.' });
-        }
-        res.status(200).json(JSON.parse(data));
+        res.status(200).json({ success: true, message: 'Studio saved successfully.' });
     });
 });
 
