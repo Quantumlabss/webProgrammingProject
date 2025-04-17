@@ -130,9 +130,10 @@ document.addEventListener("DOMContentLoaded", function () {
         const publicTransport = document.getElementById("publicTransport").value;
         const rentalTerm = document.getElementById("rentalTerm").value;
         const price = document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value.trim();
+        const rent = document.getElementById("rent").value;
 
         // Validation: Ensure all fields are filled
-        if (!studioName || !address || !area || !type || !capacity || !price || parking === "" || publicTransport === "" || rentalTerm === "") {
+        if (!studioName || !address || !area || !type || !capacity || !price || parking === "" || publicTransport === "" || rentalTerm === "" || rent === "") {
             alert("Please fill in all fields!");
             return;
         }
@@ -141,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const studioDiv = document.createElement("div");
         studioDiv.classList.add("studio-card");
 
-        // Add studio details with delete button
+        // Add studio details with delete and update button
         studioDiv.innerHTML = `
             <h3>${studioName}</h3>
             <p><strong>Address:</strong> ${address}</p>
@@ -150,10 +151,80 @@ document.addEventListener("DOMContentLoaded", function () {
             <p><strong>Capacity:</strong> ${capacity} people</p>
             <p><strong>Parking:</strong> ${parking}</p>
             <p><strong>Public Transport:</strong> ${publicTransport}</p>
+            <p><strong>Is it available to rent?:</strong> ${rent}</p>
             <p><strong>Rental Term:</strong> ${rentalTerm}</p>
             <p><strong>Price:</strong> $${price} per ${rentalTerm}</p>
             <button class="deleteStudio">Delete</button>
+            <button class="update-button">Update</button>
         `;
+
+        // Update button functionality
+const updateBtn = studioDiv.querySelector(".update-button");
+updateBtn.addEventListener("click", function () {
+    // Open the form
+    studioContainer.style.display = "flex";
+    setTimeout(() => studioContainer.classList.add("show"), 10);
+
+    // Fill the form with current card data
+    document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value = studioName;
+    document.querySelector(".studioArea input[placeholder='Insert the address']").value = address;
+    document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value = area;
+    document.querySelector(".studioArea input[placeholder='Type of studio']").value = type;
+    document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value = capacity;
+    document.getElementById("parking").value = parking;
+    document.getElementById("publicTransport").value = publicTransport;
+    document.getElementById("rent").value = rent;
+    document.getElementById("rentalTerm").value = rentalTerm;
+    document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value = price;
+    
+    addStudioForm.textContent = "Update Studio";
+
+    const newBtn = addStudioForm.cloneNode(true);
+    addStudioForm.parentNode.replaceChild(newBtn, addStudioForm);
+
+
+    newBtn.addEventListener("click", function () {
+        const updatedName = document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value.trim();
+        const updatedAddress = document.querySelector(".studioArea input[placeholder='Insert the address']").value.trim();
+        const updatedArea = document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value.trim();
+        const updatedType = document.querySelector(".studioArea input[placeholder='Type of studio']").value.trim();
+        const updatedCapacity = document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value.trim();
+        const updatedParking = document.getElementById("parking").value;
+        const updatedPublicTransport = document.getElementById("publicTransport").value;
+        const updatedRent = document.getElementById("rent").value;
+        const updatedRentalTerm = document.getElementById("rentalTerm").value;
+        const updatedPrice = document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value.trim();
+
+        if (!updatedName || !updatedAddress || !updatedArea || !updatedType || !updatedCapacity || !updatedPrice || updatedParking === "" || updatedPublicTransport === "" || updatedRentalTerm === "" || updatedRent === "") {
+            alert("Please fill in all fields!");
+            return;
+        }
+        studioDiv.innerHTML = `
+            <h3>${updatedName}</h3>
+            <p><strong>Address:</strong> ${updatedAddress}</p>
+            <p><strong>Area:</strong> ${updatedArea} sq. meters</p>
+            <p><strong>Type:</strong> ${updatedType}</p>
+            <p><strong>Capacity:</strong> ${updatedCapacity} people</p>
+            <p><strong>Parking:</strong> ${updatedParking}</p>
+            <p><strong>Public Transport:</strong> ${updatedPublicTransport}</p>
+            <p><strong>Is it available to rent?:</strong> ${updatedRent}</p>
+            <p><strong>Rental Term:</strong> ${updatedRentalTerm}</p>
+            <p><strong>Price:</strong> $${updatedPrice} per ${updatedRentalTerm}</p>
+            <button class="deleteStudio">Delete</button>
+            <button class="update-button">Update</button>
+        `;
+
+       
+        const newDelete = studioDiv.querySelector(".deleteStudio");
+        newDelete.addEventListener("click", () => studioDiv.remove());
+
+        const newUpdate = studioDiv.querySelector(".update-button");
+        newUpdate.addEventListener("click", () => updateBtn.click()); // 
+
+        studioContainer.classList.remove("show");
+        setTimeout(() => studioContainer.style.display = "none", 300);
+    });
+});
 
         // Append the new studio card inside the studio-list container
         document.querySelector(".studio-list").appendChild(studioDiv);
