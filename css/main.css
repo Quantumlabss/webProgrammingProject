@@ -311,6 +311,99 @@
     margin-left: 41vw;
 }
 
+/* Responsividade Geral */
+
+@media (max-width: 1024px) {
+  .searchBar {
+    width: 50%;
+  }
+
+  .profileSpace {
+    width: 10%;
+  }
+
+  .containerOptions {
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .logoImg {
+    margin: 10px;
+  }
+
+  .searchBar {
+    width: 90%;
+    margin: 10px;
+  }
+
+  .profileSpace {
+    margin: 10px;
+    width: 100px;
+    justify-content: center;
+  }
+
+  .containerOptions {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .rentOptions {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .storeTitle {
+    margin: 20px auto;
+    width: auto;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .searchBar {
+    height: 40px;
+    font-size: 14px;
+  }
+
+  .searchBar input {
+    font-size: 14px;
+  }
+
+  .profileSpace {
+    flex-direction: row;
+    width: auto;
+    padding: 5px 10px;
+  }
+
+  .containerOptions {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .letter span {
+    font-size: 14px;
+  }
+
+  .storeStudio h2 {
+    font-size: 1rem;
+  }
+
+  .storeStudio p,
+  .storeStudio button {
+    font-size: 0.9rem;
+  }
+}
+
 
 /*STORE DISPLAY*/
 

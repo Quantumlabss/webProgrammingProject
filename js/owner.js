@@ -1,274 +1,139 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.querySelector(".popup");
-    const userIcon = document.querySelector(".bxs-user-circle");
-    const closeBtn = document.querySelector(".close");
+    const addStudioBtn = document.querySelector(".studioBtn button");
+    const studioContainer = document.querySelector(".studioContainer");
+    const closeBtn = studioContainer.querySelector(".close");
+    const addStudioFormBtn = document.querySelector(".addStudio");
 
-    if (!popup || !userIcon || !closeBtn) {
-        return;
-    }
+    let editingStudio = null;
 
-    userIcon.addEventListener("click", function () {
-        popup.style.display = "flex";
-        setTimeout(() => popup.classList.add("show"), 10);
-    });
-
-    closeBtn.addEventListener("click", function () {
-        popup.classList.remove("show");
-        setTimeout(() => popup.style.display = "none", 300);
-    });
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const popup = document.querySelector(".popup");
-    const closeBtn = document.querySelector(".close");
-    const loginBtn = document.querySelector(".login-btn");
-    const signupBtn = document.querySelector(".signup-btn");
-    const errorDisplay = document.createElement("p");
-    errorDisplay.className = "error-message";
-    document.querySelector(".popup-content").appendChild(errorDisplay);
-
-    closeBtn.addEventListener("click", () => {
-        popup.style.display = "none";
-    });
-
-    loginBtn.addEventListener("click", () => {
-        const email = document.querySelector(".popup-content input[type='email']").value.trim();
-
-        if (!validateEmail(email)) {
-            showError("Please enter a valid email address for login.");
-            return;
-        }
-
-        const savedAccount = getCookie("account");
-        if (savedAccount && JSON.parse(savedAccount).email === email) {
-            alert(`Login successful for email: ${email}`);
-            popup.style.display = "none";
-        } else {
-            showError("Account not found. Please sign up.");
-        }
-    });
-
-    signupBtn.addEventListener("click", () => {
-        const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
-        const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
-        const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
-
-        if (!name || !phone || !validateEmail(email)) {
-            showError("Please fill in all fields with valid information.");
-            return;
-        }
-
-        const accountData = JSON.stringify({ name, phone, email });
-        setCookie("account", accountData, 7);
-
-        alert(`Signup successful for: ${name}`);
-        popup.style.display = "none";
-    });
-
-    function showError(message) {
-        errorDisplay.textContent = message;
-    }
-
-    function validateEmail(email) {
-        const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        return regex.test(email);
-    }
-
-    function getCookie(name) {
-        const value = `; ${document.cookie}`;
-        const parts = value.split(`; ${name}=`);
-        if (parts.length === 2) return parts.pop().split(";").shift();
-        return null;
-    }
-
-    function setCookie(name, value, days) {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
-        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function () {
-    const addStudioBtn = document.querySelector(".studioBtn button"); // "Add New Studio" button
-    const studioContainer = document.querySelector(".studioContainer"); // Popup container
-    const closeBtn = studioContainer.querySelector(".close"); // Close button
-    const addStudioForm = document.querySelector(".addStudio"); // "Add Studio" button inside popup
-    const studioList = document.querySelector(".studio-list"); // Container for new studios
-
-    // Ensure studio-list exists; if not, create one
-    if (!studioList) {
-        const newStudioList = document.createElement("div");
-        newStudioList.classList.add("studio-list");
-        document.body.appendChild(newStudioList);
-    }
-
-    // Show the popup when clicking "Add New Studio"
     addStudioBtn.addEventListener("click", function () {
+        editingStudio = null;
         studioContainer.style.display = "flex";
         setTimeout(() => studioContainer.classList.add("show"), 10);
+        clearForm();
+        addStudioFormBtn.textContent = "Add Studio";
     });
 
-    // Hide the popup when clicking the close button
     closeBtn.addEventListener("click", function () {
         studioContainer.classList.remove("show");
         setTimeout(() => studioContainer.style.display = "none", 300);
     });
 
-    // Add event listener for the "Add Studio" button
-    addStudioForm.addEventListener("click", function () {
-        addStudio();
-    });
-
-    function addStudio() {
-        // Get input values
-        const studioName = document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value.trim();
-        const address = document.querySelector(".studioArea input[placeholder='Insert the address']").value.trim();
-        const area = document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value.trim();
-        const type = document.querySelector(".studioArea input[placeholder='Type of studio']").value.trim();
-        const capacity = document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value.trim();
-        const parking = document.getElementById("parking").value;
-        const publicTransport = document.getElementById("publicTransport").value;
-        const rentalTerm = document.getElementById("rentalTerm").value;
-        const price = document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value.trim();
-        const rent = document.getElementById("rent").value;
-
-        // Validation: Ensure all fields are filled
-        if (!studioName || !address || !area || !type || !capacity || !price || parking === "" || publicTransport === "" || rentalTerm === "" || rent === "") {
+    addStudioFormBtn.addEventListener("click", function () {
+        const studioData = getFormData();
+        if (!validateFormData(studioData)) {
             alert("Please fill in all fields!");
             return;
         }
 
-        // Create a new studio div
-        const studioDiv = document.createElement("div");
-        studioDiv.classList.add("studio-card");
-
-        // Add studio details with delete and update button
-        studioDiv.innerHTML = `
-            <h3>${studioName}</h3>
-            <p><strong>Address:</strong> ${address}</p>
-            <p><strong>Area:</strong> ${area} sq. meters</p>
-            <p><strong>Type:</strong> ${type}</p>
-            <p><strong>Capacity:</strong> ${capacity} people</p>
-            <p><strong>Parking:</strong> ${parking}</p>
-            <p><strong>Public Transport:</strong> ${publicTransport}</p>
-            <p><strong>Is it available to rent?:</strong> ${rent}</p>
-            <p><strong>Rental Term:</strong> ${rentalTerm}</p>
-            <p><strong>Price:</strong> $${price} per ${rentalTerm}</p>
-            <button class="deleteStudio">Delete</button>
-            <button class="update-button">Update</button>
-        `;
-
-        // Update button functionality
-const updateBtn = studioDiv.querySelector(".update-button");
-updateBtn.addEventListener("click", function () {
-    // Open the form
-    studioContainer.style.display = "flex";
-    setTimeout(() => studioContainer.classList.add("show"), 10);
-
-    // Fill the form with current card data
-    document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value = studioName;
-    document.querySelector(".studioArea input[placeholder='Insert the address']").value = address;
-    document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value = area;
-    document.querySelector(".studioArea input[placeholder='Type of studio']").value = type;
-    document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value = capacity;
-    document.getElementById("parking").value = parking;
-    document.getElementById("publicTransport").value = publicTransport;
-    document.getElementById("rent").value = rent;
-    document.getElementById("rentalTerm").value = rentalTerm;
-    document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value = price;
-    
-    addStudioForm.textContent = "Update Studio";
-
-    const newBtn = addStudioForm.cloneNode(true);
-    addStudioForm.parentNode.replaceChild(newBtn, addStudioForm);
-
-
-    newBtn.addEventListener("click", function () {
-        const updatedName = document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value.trim();
-        const updatedAddress = document.querySelector(".studioArea input[placeholder='Insert the address']").value.trim();
-        const updatedArea = document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value.trim();
-        const updatedType = document.querySelector(".studioArea input[placeholder='Type of studio']").value.trim();
-        const updatedCapacity = document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value.trim();
-        const updatedParking = document.getElementById("parking").value;
-        const updatedPublicTransport = document.getElementById("publicTransport").value;
-        const updatedRent = document.getElementById("rent").value;
-        const updatedRentalTerm = document.getElementById("rentalTerm").value;
-        const updatedPrice = document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value.trim();
-
-        if (!updatedName || !updatedAddress || !updatedArea || !updatedType || !updatedCapacity || !updatedPrice || updatedParking === "" || updatedPublicTransport === "" || updatedRentalTerm === "" || updatedRent === "") {
-            alert("Please fill in all fields!");
-            return;
+        if (editingStudio) {
+            updateStudioCard(editingStudio, studioData);
+            editingStudio = null;
+            addStudioFormBtn.textContent = "Add Studio";
+        } else {
+            const card = createStudioCard(studioData);
+            document.querySelector(".studio-list").appendChild(card);
         }
-        studioDiv.innerHTML = `
-            <h3>${updatedName}</h3>
-            <p><strong>Address:</strong> ${updatedAddress}</p>
-            <p><strong>Area:</strong> ${updatedArea} sq. meters</p>
-            <p><strong>Type:</strong> ${updatedType}</p>
-            <p><strong>Capacity:</strong> ${updatedCapacity} people</p>
-            <p><strong>Parking:</strong> ${updatedParking}</p>
-            <p><strong>Public Transport:</strong> ${updatedPublicTransport}</p>
-            <p><strong>Is it available to rent?:</strong> ${updatedRent}</p>
-            <p><strong>Rental Term:</strong> ${updatedRentalTerm}</p>
-            <p><strong>Price:</strong> $${updatedPrice} per ${updatedRentalTerm}</p>
-            <button class="deleteStudio">Delete</button>
-            <button class="update-button">Update</button>
-        `;
-
-       
-        const newDelete = studioDiv.querySelector(".deleteStudio");
-        newDelete.addEventListener("click", () => studioDiv.remove());
-
-        const newUpdate = studioDiv.querySelector(".update-button");
-        newUpdate.addEventListener("click", () => updateBtn.click()); // 
 
         studioContainer.classList.remove("show");
         setTimeout(() => studioContainer.style.display = "none", 300);
+        clearForm();
     });
-});
 
-        // Append the new studio card inside the studio-list container
-        document.querySelector(".studio-list").appendChild(studioDiv);
+    function createStudioCard(data) {
+        const div = document.createElement("div");
+        div.className = "studio-card";
+        div.innerHTML = buildCardHTML(data);
 
-        // Hide the popup after adding
-        studioContainer.classList.remove("show");
-        setTimeout(() => studioContainer.style.display = "none", 300);
+        const deleteBtn = div.querySelector(".deleteStudio");
+        deleteBtn.addEventListener("click", () => div.remove());
 
-        // Clear input fields after adding
-        document.querySelectorAll(".studioArea input").forEach(input => input.value = "");
-
-        // Send the studio data to the server to be saved
-        const studioData = {
-            studioName,
-            address,
-            area,
-            type,
-            capacity,
-            parking,
-            publicTransport,
-            rentalTerm,
-            price
-        };
-
-        // Send the studio data to the server to save it
-        fetch("/add-studio", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(studioData)
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log("Studio saved:", data);
-            })
-            .catch(error => {
-                console.error("Error saving studio:", error);
-            });
-
-        // Delete button functionality
-        const deleteBtn = studioDiv.querySelector(".deleteStudio");
-        deleteBtn.addEventListener("click", function () {
-            studioDiv.remove(); // Remove studio card from the list
+        const updateBtn = div.querySelector(".update-button");
+        updateBtn.addEventListener("click", () => {
+            editingStudio = div;
+            fillFormWithData(data);
+            studioContainer.style.display = "flex";
+            setTimeout(() => studioContainer.classList.add("show"), 10);
+            addStudioFormBtn.textContent = "Update Studio";
         });
+
+        return div;
+    }
+
+    function updateStudioCard(card, data) {
+        card.innerHTML = buildCardHTML(data);
+
+        card.querySelector(".deleteStudio").addEventListener("click", () => card.remove());
+
+        card.querySelector(".update-button").addEventListener("click", () => {
+            editingStudio = card;
+            fillFormWithData(data);
+            studioContainer.style.display = "flex";
+            setTimeout(() => studioContainer.classList.add("show"), 10);
+            addStudioFormBtn.textContent = "Update Studio";
+        });
+    }
+
+    function buildCardHTML(data) {
+        return `
+            <h3>${data.studioName}</h3>
+            <p><strong>Address:</strong> ${data.address}</p>
+            <p><strong>Area:</strong> ${data.area} sq. meters</p>
+            <p><strong>Type:</strong> ${data.type}</p>
+            <p><strong>Capacity:</strong> ${data.capacity} people</p>
+            <p><strong>Parking:</strong> ${data.parking}</p>
+            <p><strong>Public Transport:</strong> ${data.publicTransport}</p>
+            <p><strong>Is it available to rent?:</strong> ${data.rent}</p>
+            <p><strong>Rental Term:</strong> ${data.rentalTerm}</p>
+            <p><strong>Price:</strong> $${data.price} per ${data.rentalTerm}</p>
+            <button class="deleteStudio">Delete</button>
+            <button class="update-button">Update</button>
+        `;
+    }
+
+    function getFormData() {
+        return {
+            studioName: document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value.trim(),
+            address: document.querySelector(".studioArea input[placeholder='Insert the address']").value.trim(),
+            area: document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value.trim(),
+            type: document.querySelector(".studioArea input[placeholder='Type of studio']").value.trim(),
+            capacity: document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value.trim(),
+            parking: document.getElementById("parking").value,
+            publicTransport: document.getElementById("publicTransport").value,
+            rent: document.getElementById("rent").value,
+            rentalTerm: document.getElementById("rentalTerm").value,
+            price: document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value.trim()
+        };
+    }
+
+    function validateFormData(data) {
+        return Object.values(data).every(val => val !== "");
+    }
+
+    function fillFormWithData(data) {
+        document.querySelector(".studioArea input[placeholder=\"Studio's name\"]").value = data.studioName;
+        document.querySelector(".studioArea input[placeholder='Insert the address']").value = data.address;
+        document.querySelector(".studioArea input[placeholder='Area (in square meters)']").value = data.area;
+        document.querySelector(".studioArea input[placeholder='Type of studio']").value = data.type;
+        document.querySelector(".studioArea input[placeholder='How many people can it accommodate?']").value = data.capacity;
+        document.getElementById("parking").value = data.parking;
+        document.getElementById("publicTransport").value = data.publicTransport;
+        document.getElementById("rent").value = data.rent;
+        document.getElementById("rentalTerm").value = data.rentalTerm;
+        document.querySelector(".studioArea input[placeholder='Insert the price per rental term']").value = data.price;
+    }
+
+    function clearForm() {
+        document.querySelectorAll(".studioArea input").forEach(input => input.value = "");
+        document.getElementById("parking").value = "";
+        document.getElementById("publicTransport").value = "";
+        document.getElementById("rent").value = "";
+        document.getElementById("rentalTerm").value = "";
+    }
+
+    if (!document.querySelector(".studio-list")) {
+        const list = document.createElement("div");
+        list.className = "studio-list";
+        document.body.appendChild(list);
     }
 });

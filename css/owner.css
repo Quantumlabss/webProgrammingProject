@@ -301,7 +301,8 @@
 
 .studioArea {
     background: white;
-    padding: 20px;
+    margin-top: 30px;
+    padding: 10px;
     border-radius: 10px;
     width: 350px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
@@ -374,3 +375,73 @@
     width: 95%;
 }
 
+@media (max-width: 1024px) {
+    .searchBar {
+        width: 50%;
+      }
+    
+      .profileSpace {
+        width: 10%;
+      }
+
+      .studioArea{
+        margin-top: 10px;
+        position: relative;
+        height: 100%;
+        width: 60%;
+      }
+
+    
+  }
+  
+  @media (max-width: 768px) {
+    .menu {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    
+      .logoImg {
+        margin: 10px;
+      }
+    
+      .searchBar {
+        width: 90%;
+        margin: 10px;
+      }
+    
+      .profileSpace {
+        margin: 10px;
+        width: 100px;
+        justify-content: center;
+      }
+  }
+  
+  @media (max-width: 480px) {
+    .searchBar {
+        height: 40px;
+        font-size: 14px;
+    }
+    
+      .searchBar input {
+        font-size: 14px;
+      }
+    
+      .profileSpace {
+        flex-direction: row;
+        width: auto;
+        padding: 5px 10px;
+      }
+  
+    .studio-card {
+      width: 90%;
+    }
+  
+    .studioArea, .popup-content {
+      width: 90%;
+    }
+  
+    .input-field {
+      font-size: 14px;
+    }
+  }
