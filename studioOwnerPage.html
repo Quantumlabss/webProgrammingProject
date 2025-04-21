@@ -2,75 +2,90 @@
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Studio Owner Profile</title>
 
-  <!--=============== STYLES ===============-->
+  <!--=============== STYLE FILES ===============-->
   <link href="./css/main.css" rel="stylesheet"/>
   <link href="./css/owner.css" rel="stylesheet"/>
   <link href="./css/newUser.css" rel="stylesheet"/>
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
 </head>
-<body>
+<body class="studio-owner-page">
 
   <!--=============== NAVIGATION BAR ===============-->
   <header>
     <nav>
       <div class="menu">
         <div class="logoImg"></div>
+
+        <!--=============== FIXED CENTERED SEARCH BAR ===============-->
         <div class="searchBar">
           <input id="searchInput" placeholder="Search..." type="search"/>
           <i class="bx bx-search" id="searchBtn"></i>
         </div>
-        <div class="profileSpace">
-          <div class="avatar" id="avatarImage"></div>
-        </div>
+
+        <!-- Profile avatar removed -->
       </div>
     </nav>
   </header>
 
-  <!--=============== LOGOUT POPUP ===============-->
+  <!--=============== (DEPRECATED) LOGOUT POPUP ===============-->
   <div class="popup" id="logoutPopup">
     <div class="popup-content">
       <button onclick="window.location.href='index.html'">Logout & Return Home</button>
     </div>
   </div>
 
-  <!--=============== USER SIDEBAR INFO ===============-->
+  <!--=============== MAIN CONTENT ===============-->
+  <div class="mainContent">
+    <!-- Add studio button -->
+    <div class="addBtn">
+      <div class="studioBtn">
+        <button>Add new studio</button>
+      </div>
+    </div>
+
+    <!-- Page section title -->
+    <h1 class="myStudiosTitle">My Studios</h1>
+
+    <!-- Studios list container -->
+    <div id="userStudios" class="row1container"></div>
+  </div>
+
+  <!--=============== SIDEBAR: PROFILE INFO + LOGOUT ===============-->
   <div class="sidebar">
+    <div class="avatar" id="sidebarAvatar"></div>
     <div class="welcome" id="welcomeTitle">Welcome</div>
+
     <div class="info-row">
       <label for="nameInput">Name:</label>
       <input id="nameInput" readonly type="text"/>
       <i class="bx bx-edit edit-btn" data-target="nameInput"></i>
       <button class="save-btn" data-target="nameInput">Save</button>
     </div>
+
     <div class="info-row">
       <label for="phoneInput">Phone:</label>
       <input id="phoneInput" readonly type="tel"/>
       <i class="bx bx-edit edit-btn" data-target="phoneInput"></i>
       <button class="save-btn" data-target="phoneInput">Save</button>
     </div>
+
     <div class="info-row">
       <label for="emailInput">Email:</label>
       <input id="emailInput" readonly type="email"/>
       <i class="bx bx-edit edit-btn" data-target="emailInput"></i>
       <button class="save-btn" data-target="emailInput">Save</button>
     </div>
+
     <p id="updateStatus" style="color: green;"></p>
+
+    <!-- Logout button at bottom -->
+    <button class="logoutBtn" onclick="window.location.href='index.html'">Logout</button>
   </div>
 
-  <!--=============== ADD STUDIO BUTTON ===============-->
-  <div class="addBtn">
-    <div class="studioBtn">
-      <button>Add new studio</button>
-    </div>
-  </div>
-
-  <!--=============== STUDIOS DISPLAY AREA ===============-->
-  <div id="userStudios" class="row1container"></div>
-
-  <!--=============== STUDIO CREATION MODAL ===============-->
+  <!--=============== STUDIO CREATION POPUP MODAL ===============-->
   <div class="studioContainer">
     <div class="studioArea">
       <span class="close">&times;</span>
@@ -118,7 +133,7 @@
     </div>
   </div>
 
-  <!--=============== JS SCRIPT ===============-->
+  <!--=============== SCRIPT ===============-->
   <script src="script.js" defer></script>
 </body>
 </html>

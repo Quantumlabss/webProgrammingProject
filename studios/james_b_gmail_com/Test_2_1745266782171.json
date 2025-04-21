@@ -1,0 +1,13 @@
+{
+  "studioName": "Test 2",
+  "address": "34",
+  "area": "50",
+  "type": "Gaming Studios",
+  "capacity": "20",
+  "parking": "Yes",
+  "publicTransport": "No",
+  "rentalTerm": "week",
+  "price": "8000",
+  "email": "james.b@gmail.com",
+  "timestamp": 1745266782171
+}

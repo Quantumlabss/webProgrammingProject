@@ -274,6 +274,7 @@ select.input-field:invalid {
   padding: 2rem;
   max-width: 1200px;
   margin: auto;
+ 
 }
 
 .storeStudio {
@@ -453,4 +454,136 @@ select.input-field:invalid {
   .storeStudio button {
     font-size: 0.9rem;
   }
+}
+
+
+/* ---------------------- Sidebar Styling ---------------------- */
+/* -------------------------------------------
+| Sidebar Styling for Studio Owner Page View |
+------------------------------------------- */
+
+/* Sidebar container fixed on the right side of the screen */
+body.studio-owner-page .sidebar {
+  position: fixed;
+  top: 110px;
+  right: 0;
+  height: 100vh;
+  width: 280px;
+  background-color: white;
+  padding: 25px 20px;
+  border-radius: 15px 0 0 15px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Avatar displayed above user info fields */
+body.studio-owner-page .sidebar .avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: black;
+  margin-bottom: 20px;
+}
+
+/* User information rows: label, input, edit & save */
+body.studio-owner-page .sidebar .info-row {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+body.studio-owner-page .sidebar label {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+body.studio-owner-page .sidebar input[readonly] {
+  border: none;
+  background-color: #f4f4f4;
+  padding: 5px 8px;
+  border-radius: 5px;
+  width: 180px;
+}
+
+body.studio-owner-page .sidebar .edit-btn {
+  font-size: 18px;
+  cursor: pointer;
+  color: #333;
+}
+
+body.studio-owner-page .sidebar .save-btn {
+  display: none;
+  padding: 4px 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Pushes the main content to the left of the sidebar */
+body.studio-owner-page .mainContent {
+  margin-right: 300px;
+}
+
+/* Fixes the search bar to the top center of the screen */
+body.studio-owner-page .searchBar {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999;
+  background-color: white;
+}
+
+/* Hides the profile icon section (if still present in the DOM) */
+body.studio-owner-page .profileSpace {
+  display: none !important;
+}
+
+/* Full height sidebar layout with vertical alignment */
+body.studio-owner-page .sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 280px;
+  background-color: white;
+  padding: 25px 20px;
+  border-radius: 15px 0 0 15px;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+/* Logout button positioned at the bottom of the sidebar */
+.logoutBtn {
+  margin-top: auto;
+  background-color: #ff4d4d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background-color: #e60000;
+}
+
+/* Title styling for the 'My Studios' section */
+.myStudiosTitle {
+  text-align: center;
+  width: 100%;
+  margin-top: 1rem;
+  font-size: 24px;
+  font-weight: bold;
 }
