@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <link rel="stylesheet" href="./css/owner.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="menu">
+                <div class="logoImg"></div>
+                <div class="searchBar">
+                    <input type="search" placeholder="Search..." id="searchInput">
+                    <i class='bx bx-search'id="searchBtn"></i>
+                </div>
+                <div class="profileSpace">
+                    <i class='bx bx-menu'></i>
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="bigContainer" style="padding: 40px;">
+        <h1>Welcome, User!</h1>
+
+        <div id="userInfo">
+            <label><strong>Name:</strong></label>
+            <input type="text" id="nameInput"><br><br>
+            <label><strong>Phone:</strong></label>
+            <input type="tel" id="phoneInput"><br><br>
+            <label><strong>Email:</strong></label>
+            <input type="email" id="emailInput"><br><br>
+            <button id="updateBtn">Update Info</button>
+            <p id="updateStatus" style="color: green;"></p>
+        </div>
+    </div>
+
+    <script>
+        function getUrlParameter(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        // Pre-fill fields
+        document.getElementById('nameInput').value = getUrlParameter('name') || '';
+        document.getElementById('phoneInput').value = getUrlParameter('phone') || '';
+        document.getElementById('emailInput').value = getUrlParameter('email') || '';
+
+        // Update info
+        document.getElementById('updateBtn').addEventListener('click', () => {
+            const name = document.getElementById('nameInput').value.trim();
+            const phone = document.getElementById('phoneInput').value.trim();
+            const email = document.getElementById('emailInput').value.trim();
+
+            if (!name || !phone || !email) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            const userData = { name, phone, email };
+
+            fetch(`/signup`, {
+                method: 'POST',  // we're overwriting the file, so POST is safe here
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ...userData, userType: "newUser" }) // Assuming always newUser
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("updateStatus").textContent = "Information updated successfully!";
+            })
+            .catch(error => {
+                alert("Error updating user info.");
+            });
+        });
+    </script>
+</body>
+</html>

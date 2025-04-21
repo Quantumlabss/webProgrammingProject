@@ -1,255 +1,257 @@
-// Aguardar até que o DOM esteja completamente carregado
+//--------------------------------- studioOwnerPage.html logic --------------------------------------------//
 document.addEventListener("DOMContentLoaded", function () {
-  const signUpBtn = document.getElementById('signUpBtn');
+  // Check if current page is studioOwnerPage
+  const isStudioOwnerPage = window.location.pathname.includes("studioOwnerPage");
 
-  // Ao clicar no botão de "Sign Up"
-  signUpBtn.addEventListener('click', function (e) {
-      e.preventDefault(); // Prevenir o comportamento padrão (recarregar página)
+  if (isStudioOwnerPage) {
+    // Toggle logout popup when avatar is clicked
+    const avatarImage = document.getElementById("avatarImage");
+    const logoutPopup = document.getElementById("logoutPopup");
 
-      // Obter os valores dos campos
-      const name = document.getElementById('name').value;
-      const phone = document.getElementById('phone').value;
-      const email = document.getElementById('signupEmail').value;
-      
-      // Verificar qual tipo de usuário foi selecionado
-      const userType = document.querySelector('input[name="userType"]:checked');
-
-      if (!name || !phone || !email || !userType) {
-          alert("Por favor, preencha todos os campos e selecione um tipo de usuário.");
-          return;
-      }
-
-      // Obter o valor do tipo de usuário
-      const userTypeValue = userType.value;
-
-      // Construir a URL para redirecionamento com parâmetros
-      let redirectUrl = '';
-
-      if (userTypeValue === 'studioOwner') {
-          // Se for um proprietário de estúdio
-          redirectUrl = `studioOwnerPage.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
-      } else if (userTypeValue === 'newUser') {
-          // Se for um novo usuário
-          redirectUrl = `newUser.html?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
-      }
-
-      // Redirecionar para a página correspondente
-      window.location.href = redirectUrl;
-  });
-});
-
-
-//-----------------------------------------------------------------------------------------------------------------//
-document.addEventListener("DOMContentLoaded", function () {
-    const filterButtons = document.querySelectorAll('.icons span');
-    const studios = document.querySelectorAll('.storeStudio');
-    const storeTitle = document.querySelector('.storeTitle');  // Captura o h1 com a classe storeTitle
-  
-    filterButtons.forEach(button => {
-      button.addEventListener('click', function () {
-        const filterId = this.id;
-        filterStudios(filterId);
-        updateTitle(filterId);  // Atualiza o texto do título com base no filtro
-      });
-    });
-  
-    function filterStudios(filterId) {
-      studios.forEach(studio => {
-        if (studio.classList.contains(`storeStudio${capitalizeFirstLetter(filterId)}`) || filterId === 'all') {
-          studio.style.display = 'block';
-        } else {
-          studio.style.display = 'none';
-        }
+    if (avatarImage && logoutPopup) {
+      avatarImage.addEventListener("click", () => {
+        logoutPopup.classList.toggle("show");
       });
     }
-  
-    function updateTitle(filterId) {
-      let titleText = 'Studios';  // Valor padrão para o título
-  
-      switch (filterId) {
-        case 'art':
-          titleText = 'Art Studios';
-          break;
-        case 'game':
-          titleText = 'Gaming Studios';
-          break;
-        case 'msc':
-          titleText = 'Music Studios';
-          break;
-        case 'rec':
-          titleText = 'Recording Studios';
-          break;
-        case 'mask':
-          titleText = 'Rehearsal Studios';
-          break;
-        case 'dmd':
-          titleText = 'Premium Studios';
-          break;
-        case 'all':
-          titleText = 'All Studios';
-          break;
-        default:
-          titleText = 'Studios';  // Caso nenhum filtro seja aplicado
-          break;
-      }
-  
-      storeTitle.textContent = titleText;  // Atualiza o texto do título
+
+    // Fetch user data based on email from URL
+    const email = new URLSearchParams(window.location.search).get("email");
+    const safeEmail = email.replace(/[^a-zA-Z0-9]/g, '_');
+
+    if (email) {
+      fetch(`/users/${safeEmail}`)
+        .then(response => {
+          if (!response.ok) throw new Error("User not found");
+          return response.json();
+        })
+        .then(user => {
+          document.getElementById('nameInput').value = user.name || '';
+          document.getElementById('phoneInput').value = user.phone || '';
+          document.getElementById('emailInput').value = user.email || '';
+          document.getElementById('welcomeTitle').textContent = `Welcome, ${user.name}`;
+          loadUserStudios(safeEmail); // Load studios for this user
+        })
+        .catch(error => {
+          alert("Could not fetch user data.");
+        });
     }
-  
-    function capitalizeFirstLetter(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-  
-    showAllStudios();  // Exibe todos os estúdios ao carregar a página
-  
-    function showAllStudios() {
-      studios.forEach(studio => {
-        studio.style.display = 'block';
+
+    // Enable edit mode for user info fields
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const inputId = btn.getAttribute('data-target');
+        const inputField = document.getElementById(inputId);
+        const saveBtn = document.querySelector(`.save-btn[data-target="${inputId}"]`);
+        inputField.removeAttribute('readonly');
+        inputField.focus();
+        saveBtn.style.display = 'inline-block';
       });
-    }
-  });
-  
-  
-
-
-
-document.addEventListener("DOMContentLoaded", function () {
-    
-    const storeContainer = document.getElementById('storeContainer'); 
-    const loginButton = document.querySelector('.login-btn'); 
-    const signupButton = document.querySelector('.signup-btn'); 
-
-    
-    let isLoggedIn = false;
-
-    // Função para mostrar a loja se o usuário está logado ou se clicou em Login/Sign Up
-    function showStore() {
-        if (isLoggedIn || (loginButton.clicked || signupButton.clicked)) {
-            storeContainer.style.display = 'grid'; // Exibe a loja
-        } else {
-            storeContainer.style.display = 'none'; // Esconde a loja se não estiver logado
-        }
-    }
-
-    loginButton.addEventListener('click', function () {
-        isLoggedIn = true; 
-        showStore(); 
     });
 
-    signupButton.addEventListener('click', function () {
-        isLoggedIn = true; 
-        showStore(); 
-    });
+    // Save updated user info
+    document.querySelectorAll('.save-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const inputId = btn.getAttribute('data-target');
+        const inputField = document.getElementById(inputId);
+        inputField.setAttribute('readonly', true);
+        btn.style.display = 'none';
 
-    showStore();
-});
+        const name = document.getElementById('nameInput').value.trim();
+        const phone = document.getElementById('phoneInput').value.trim();
+        const email = document.getElementById('emailInput').value.trim();
 
-//-----------------------------------------------------------------------------------------------------------------//
-document.addEventListener("DOMContentLoaded", function () {
-    const popup = document.querySelector(".popup");
-    const userIcon = document.querySelector(".bxs-user-circle");
-    const closeBtn = document.querySelector(".close");
-
-    if (!popup || !userIcon || !closeBtn) {
-        return;
-    }
-
-    userIcon.addEventListener("click", function () {
-        popup.style.display = "flex";
-        setTimeout(() => popup.classList.add("show"), 10);
-    });
-
-    closeBtn.addEventListener("click", function () {
-        popup.classList.remove("show");
-        setTimeout(() => popup.style.display = "none", 300);
-    });
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-    const loginBtn = document.querySelector('.login-btn');
-    const signupBtn = document.querySelector('.signup-btn');
-    const errorDisplay = document.querySelector('.error-display');
-    const popup = document.querySelector('.popup');
-
- 
-    document.querySelector('.bxs-user-circle').addEventListener('click', () => {
-        popup.style.display = 'block';
-    });
-
-   
-    document.querySelector('.close').addEventListener('click', () => {
-        popup.style.display = 'none';
-    });
-
-    loginBtn.addEventListener('click', () => {
-        const email = document.querySelector(".popup-content input[type='email']").value.trim();
-
-        if (!validateEmail(email)) {
-            showError("Please enter a valid email address for login.");
-            return;
-        }
-
-
-        fetch(`/users/${email}.json`, { method: 'GET' })
-            .then(response => {
-                if (response.ok) {
-                    alert(`Login successful for email: ${email}`);
-                    popup.style.display = "none";
-                } else {
-                    showError("Account not found. Please sign up.");
-                }
-            })
-            .catch(err => {
-                showError("An error occurred while checking for the user.");
-            });
-    });
-
-  
-    signupBtn.addEventListener('click', () => {
-      const name = document.querySelector(".popup-content input[placeholder='Name']").value.trim();
-      const phone = document.querySelector(".popup-content input[placeholder='Phone number']").value.trim();
-      const email = document.querySelectorAll(".popup-content input[type='email']")[1].value.trim();
-      const userType = document.querySelector('input[name="userType"]:checked')?.value;
-  
-      if (!name || !phone || !validateEmail(email) || !userType) {
-          showError("Please fill in all fields with valid information.");
-          return;
-      }
-  
-      const userData = { name, phone, email, userType };
-  
-      // Primeiro envia os dados para o backend
-      fetch('/signup', {
+        fetch('/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData)
-      })
-      .then(response => response.json())
-      .then(data => {
-          alert(data.message);
-          popup.style.display = "none";
-  
-          // Depois redireciona para a página correspondente com os dados na URL
-          const queryParams = `?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
-  
-          if (userType === "studioOwner") {
-              window.location.href = `studioOwnerPage.html${queryParams}`;
-          } else if (userType === "newUser") {
-              window.location.href = `new-user.html${queryParams}`;
-          }
-      })
-      .catch(err => {
-          showError("Error occurred during signup. Please try again.");
+          body: JSON.stringify({ name, phone, email, userType: "studioOwner" })
+        })
+          .then(response => response.json())
+          .then(data => {
+            document.getElementById("updateStatus").textContent = "Information updated successfully!";
+          })
+          .catch(error => {
+            alert("Error updating user info.");
+          });
       });
-  });
-  
-
-  
-  
-
-    
-    function validateEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    }
+    });
+  }
 });
+
+//--------------------------------- Studio popup open/close logic --------------------------------------------//
+document.addEventListener('DOMContentLoaded', () => {
+  const openBtn = document.querySelector('.studioBtn button');
+  const studioContainer = document.querySelector('.studioContainer');
+  const closeBtn = document.querySelector('.studioContainer .close');
+
+  // Open studio popup
+  if (openBtn && studioContainer) {
+    openBtn.addEventListener('click', () => {
+      studioContainer.style.display = 'flex';
+      setTimeout(() => {
+        studioContainer.classList.add('show');
+      }, 10);
+    });
+  }
+
+  // Close studio popup
+  if (closeBtn && studioContainer) {
+    closeBtn.addEventListener('click', () => {
+      studioContainer.classList.remove('show');
+      setTimeout(() => {
+        studioContainer.style.display = 'none';
+      }, 300);
+    });
+  }
+});
+
+//--------------------------------- Studio submission logic --------------------------------------------//
+document.addEventListener('DOMContentLoaded', () => {
+  const submitBtn = document.querySelector('.studioContainer .addStudio');
+  const studioContainer = document.querySelector('.studioContainer');
+
+  // Handle studio submission
+  if (submitBtn && studioContainer) {
+    submitBtn.addEventListener('click', () => {
+      const studioName = document.querySelector('input[placeholder="Studio\'s name"]')?.value.trim();
+      const address = document.querySelector('input[placeholder="Insert the address"]')?.value.trim();
+      const area = document.querySelector('input[placeholder="Area (in square meters)"]')?.value.trim();
+      const type = document.getElementById("studioType")?.value;
+      const capacity = document.querySelector('input[placeholder*="accommodate"]')?.value.trim();
+      const price = document.querySelector('input[placeholder*="price"]')?.value.trim();
+      const parking = document.getElementById("parking")?.value;
+      const publicTransport = document.getElementById("publicTransport")?.value;
+      const rentalTerm = document.getElementById("rentalTerm")?.value;
+      const email = new URLSearchParams(window.location.search).get("email");
+
+      if (!studioName || !address || !area || !type || !capacity || !price || !parking || !publicTransport || !rentalTerm || !email) {
+        alert("Please fill out all fields.");
+        return;
+      }
+
+      const studio = {
+        studioName, address, area, type, capacity,
+        parking, publicTransport, rentalTerm, price,
+        email
+      };
+
+      fetch('/add-studio', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(studio)
+      })
+        .then(response => response.json())
+        .then(data => {
+          alert("Studio added successfully!");
+          studioContainer.classList.remove('show');
+          setTimeout(() => {
+            studioContainer.style.display = 'none';
+          }, 300);
+          const safeEmail = email.replace(/[^a-zA-Z0-9]/g, '_');
+          loadUserStudios(safeEmail);
+        })
+        .catch(error => {
+          alert("Error adding studio.");
+          console.error(error);
+        });
+    });
+  }
+});
+
+//--------------------------------- Login / Sign Up Popup Toggle (home/index.html) --------------------------------------------//
+document.addEventListener('DOMContentLoaded', () => {
+  const userIcon = document.querySelector('.bxs-user-circle');
+  const popup = document.querySelector('.popup');
+  const closeBtn = document.querySelector('.popup .close');
+
+  // Toggle login/signup popup
+  if (userIcon && popup && closeBtn) {
+    userIcon.addEventListener('click', () => {
+      popup.style.display = 'flex';
+      setTimeout(() => popup.classList.add('show'), 10);
+    });
+
+    closeBtn.addEventListener('click', () => {
+      popup.classList.remove('show');
+      setTimeout(() => popup.style.display = 'none', 300);
+    });
+  }
+});
+
+//--------------------------------- Signup logic (redirect after success) --------------------------------------------//
+document.addEventListener('DOMContentLoaded', () => {
+  const signUpBtn = document.getElementById('signUpBtn');
+  const popup = document.querySelector('.popup');
+
+  // Handle signup and redirect to correct page
+  if (signUpBtn) {
+    signUpBtn.addEventListener('click', () => {
+      const name = document.getElementById("name")?.value.trim();
+      const phone = document.getElementById("phone")?.value.trim();
+      const email = document.getElementById("signupEmail")?.value.trim();
+      const userType = document.querySelector('input[name="userType"]:checked')?.value;
+
+      if (!name || !phone || !email || !userType) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      const user = { name, phone, email, userType };
+
+      fetch('/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message);
+          popup.classList.remove('show');
+          setTimeout(() => popup.style.display = 'none', 300);
+          const redirect = userType === "studioOwner" ? "studioOwnerPage.html" : "newUser.html";
+          window.location.href = `${redirect}?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
+        })
+        .catch(err => {
+          alert("Error during sign up.");
+          console.error(err);
+        });
+    });
+  }
+});
+
+//--------------------------------- Load and display studios --------------------------------------------//
+function loadUserStudios(email) {
+  const container = document.getElementById("userStudios");
+  container.innerHTML = "";
+
+  // Fetch studios for the user and render cards
+  fetch(`/studios/${email}`)
+    .then(res => res.json())
+    .then(studios => {
+      if (!studios.length) {
+        container.innerHTML = "<p>No studios added yet.</p>";
+        return;
+      }
+
+      studios.forEach(studio => {
+        const card = document.createElement("div");
+        card.classList.add("storeStudio");
+
+        card.innerHTML = `
+          <h2>${studio.studioName}</h2>
+          <p>${studio.address}</p>
+          <p>${studio.area} m² | ${studio.type}</p>
+          <p>Capacity: ${studio.capacity}</p>
+          <p>Parking: ${studio.parking}</p>
+          <p>Transport: ${studio.publicTransport}</p>
+          <p>Term: ${studio.rentalTerm}</p>
+          <p>Price: $${studio.price}</p>
+        `;
+
+        container.appendChild(card);
+      });
+    })
+    .catch(err => {
+      container.innerHTML = "<p>Error loading studios.</p>";
+      console.error(err);
+    });
+}

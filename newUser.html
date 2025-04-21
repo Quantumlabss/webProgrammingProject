@@ -1,149 +1,64 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/main.css">
-    <title>Studio Owner Page</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>User Profile</title>
+  <link rel="stylesheet" href="./css/main.css" />
+  <link rel="stylesheet" href="./css/owner.css" />
+  <link rel="stylesheet" href="./css/newUser.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-
-    <header>
-        <nav>
-            <div class="menu">
-                <div class="logoImg"></div>
-                <div class="searchBar">
-                    <input type="search" placeholder="Search..." id="searchInput">
-                    <i class='bx bx-search'id="searchBtn"></i>
-                </div>
-                <div class="profileSpace">
-                    <i class='bx bx-menu'></i>
-                    <i class='bx bxs-user-circle'></i>
-                    
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="rentOptions">
-        <div class="containerOptions">
-            <div class="icons" >
-                <span id="art">
-                    <i class='bx bx-palette'></i>
-                    <div class="letter"><span>Art Studios</span></div>
-                </span>
-            </div>
-            <div class="icons" >
-                <span id="game">
-                    <i class='bx bx-joystick' ></i>
-                    <div class="letter"><span>Gaming Studios</span></div>
-                </span>
-            </div>
-            <div class="icons">
-                <span id="msc">
-                    <i class='bx bx-music' ></i>
-                    <div class="letter"><span>Music Studios</span></div>
-                </span>
-            </div>
-            <div class="icons">
-                <span id="rec">
-                    <i class='bx bx-video-recording'></i>
-                    <div class="letter"><span>Recording Studios</span></div>
-                </span>
-            </div>
-            <div class="icons">
-                <span id="mask">
-                    <i class='bx bx-mask'></i>
-                    <div class="letter"><span>Rehearsal Studios</span></div>
-                </span>
-            </div>
-            <div class="icons">
-                <span id="dmd">
-                    <i class='bx bx-diamond'></i>
-                    <div class="letter"><span>Premium Studios</span></div>
-                </span>
-            </div>
-            <div class="icons">
-              <span id="all">
-                <i class="bx bx-filter-alt"></i>
-                <div class="letter"><span>All Studios</span></div>
-              </span>
-            </div>
+  <header>
+    <nav>
+      <div class="menu">
+        <div class="logoImg"></div>
+        <div class="searchBar">
+          <input type="search" placeholder="Search..." id="searchInput">
+          <i class='bx bx-search' id="searchBtn"></i>
         </div>
-    </div>
-    <div class="bigContainer">
-       <!--store display (temporary)-->
-    
-    
-        <h1 class="storeTitle">Studios</h1>
-        <div class="row1container" id="storeContainer">
-          <div class="storeStudio storeStudioArt">
-              <img src="https://via.placeholder.com/200" alt="Studio 1">
-              <h2>Art Studio 1</h2>
-              <p>$49,90</p>
-              <button>Details</button>
-          </div>
-          
-          <div class="storeStudio storeStudioGame">
-              <img src="https://via.placeholder.com/200" alt="Studio 2">
-              <h2>Gaming Studio 1</h2>
-              <p>$49,90</p>
-              <button>Details</button>
-          </div>
-          
-          <div class="storeStudio storeStudioMsc">
-              <img src="https://via.placeholder.com/200" alt="Studio 3">
-              <h2>Music Studio 1</h2>
-              <p>$49,90</p>
-              <button>Details</button>
-          </div>
-          
-          <div class="storeStudio storeStudioRec">
-              <img src="https://via.placeholder.com/200" alt="Studio 4">
-              <h2>Recording Studio 1</h2>
-              <p>$49,90</p>
-              <button>Details</button>
-          </div>
-          
-          <div class="storeStudio storeStudioMask">
-              <img src="https://via.placeholder.com/200" alt="Studio 5">
-              <h2>Rehearsal Studio 1</h2>
-              <p>$49,90</p>
-              <button>Details</button>
-          </div>
-          
-          <div class="storeStudio storeStudioDmd">
-              <img src="https://via.placeholder.com/200" alt="Studio 6">
-              <h2>Premium Studio 1</h2>
-              <p>$49,90</p>
-              <button>Details</button>
-          </div>
+        <div class="profileSpace">
+          <div class="avatar" id="avatarImage"></div>
+        </div>
       </div>
-      
-          </div>
-    
+    </nav>
+  </header>
+
+  <div class="popup" id="logoutPopup">
+    <div class="popup-content">
+      <button onclick="window.location.href='index.html'">Logout & Return Home</button>
+    </div>
+  </div>
+
+  <div class="sidebar">
+    <div class="welcome" id="welcomeTitle">Welcome</div>
+
+    <div class="info-row">
+      <label for="nameInput">Name:</label>
+      <input type="text" id="nameInput" readonly />
+      <i class='bx bx-edit edit-btn' data-target="nameInput"></i>
+      <button class="save-btn" data-target="nameInput">Save</button>
     </div>
 
-    <h1>Welcome, Studio Owner!</h1>
-
-
-
-    <div id="userInfo">
-        <p><strong>Name:</strong> <span id="name"></span></p>
-        <p><strong>Phone:</strong> <span id="phone"></span></p>
-        <p><strong>Email:</strong> <span id="email"></span></p>
+    <div class="info-row">
+      <label for="phoneInput">Phone:</label>
+      <input type="tel" id="phoneInput" readonly />
+      <i class='bx bx-edit edit-btn' data-target="phoneInput"></i>
+      <button class="save-btn" data-target="phoneInput">Save</button>
     </div>
 
-    <script>
-        // Função para obter parâmetros da URL
-        function getUrlParameter(name) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(name);
-        }
+    <div class="info-row">
+      <label for="emailInput">Email:</label>
+      <input type="email" id="emailInput" readonly />
+      <i class='bx bx-edit edit-btn' data-target="emailInput"></i>
+      <button class="save-btn" data-target="emailInput">Save</button>
+    </div>
 
-        // Preencher os campos com os dados da URL
-        document.getElementById('name').textContent = getUrlParameter('name');
-        document.getElementById('phone').textContent = getUrlParameter('phone');
-        document.getElementById('email').textContent = getUrlParameter('email');
-    </script>
+    <p id="updateStatus" style="color: green;"></p>
+  </div>
+
+  <script src="./script.js"></script>
 </body>
 </html>

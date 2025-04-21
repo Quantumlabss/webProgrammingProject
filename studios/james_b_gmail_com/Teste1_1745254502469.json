@@ -1,0 +1,13 @@
+{
+  "studioName": "Teste1",
+  "address": "7 avenue",
+  "area": "1000",
+  "type": "Gaming Studios",
+  "capacity": "100",
+  "parking": "Yes",
+  "publicTransport": "Yes",
+  "rentalTerm": "week",
+  "price": "100",
+  "email": "james.b@gmail.com",
+  "timestamp": 1745254502469
+}

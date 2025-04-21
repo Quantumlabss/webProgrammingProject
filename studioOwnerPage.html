@@ -1,95 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Web Programming Project</title>
-<link rel="stylesheet" href="./css/owner.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="./js/owner.js"></script>
-<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Studio Owner Profile</title>
+
+  <!--=============== STYLES ===============-->
+  <link href="./css/main.css" rel="stylesheet"/>
+  <link href="./css/owner.css" rel="stylesheet"/>
+  <link href="./css/newUser.css" rel="stylesheet"/>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
 </head>
 <body>
-<header>
+
+  <!--=============== NAVIGATION BAR ===============-->
+  <header>
     <nav>
-        <div class="menu">
-            <div class="logoImg"></div>
-            <div class="searchBar">
-                <input type="search" placeholder="Search..." id="searchInput">
-                <i class='bx bx-search'id="searchBtn"></i>
-            </div>
-            <div class="profileSpace">
-                <i class='bx bx-menu'></i>
-                <i class='bx bxs-user-circle'></i>
-            </div>
+      <div class="menu">
+        <div class="logoImg"></div>
+        <div class="searchBar">
+          <input id="searchInput" placeholder="Search..." type="search"/>
+          <i class="bx bx-search" id="searchBtn"></i>
         </div>
+        <div class="profileSpace">
+          <div class="avatar" id="avatarImage"></div>
+        </div>
+      </div>
     </nav>
-</header>
-<div class="popup">
+  </header>
+
+  <!--=============== LOGOUT POPUP ===============-->
+  <div class="popup" id="logoutPopup">
     <div class="popup-content">
-        <span class="close">&times;</span>
-        <h2>Log in or sign up</h2>
-        <input type="email" placeholder="Email address" class="input-field">
-        <button class="login-btn">Log in</button>
-        <p>Don't have an account?</p>
-        <input type="text" placeholder="Name" class="input-field">
-        <input type="tel" placeholder="Phone number" class="input-field">
-        <input type="email" placeholder="Email address" class="input-field">
-        <p>You are?</p>
-        <label>
-            <input type="radio" name="userType" value="studioOwner"> Studio owner
-        </label>
-        <label>
-            <input type="radio" name="userType" value="newUser"> New user
-        </label>
-        <button class="signup-btn">Sign Up</button>
+      <button onclick="window.location.href='index.html'">Logout & Return Home</button>
     </div>
-</div>
-<!--Add studio button-->
-<div class="addBtn">
+  </div>
+
+  <!--=============== USER SIDEBAR INFO ===============-->
+  <div class="sidebar">
+    <div class="welcome" id="welcomeTitle">Welcome</div>
+    <div class="info-row">
+      <label for="nameInput">Name:</label>
+      <input id="nameInput" readonly type="text"/>
+      <i class="bx bx-edit edit-btn" data-target="nameInput"></i>
+      <button class="save-btn" data-target="nameInput">Save</button>
+    </div>
+    <div class="info-row">
+      <label for="phoneInput">Phone:</label>
+      <input id="phoneInput" readonly type="tel"/>
+      <i class="bx bx-edit edit-btn" data-target="phoneInput"></i>
+      <button class="save-btn" data-target="phoneInput">Save</button>
+    </div>
+    <div class="info-row">
+      <label for="emailInput">Email:</label>
+      <input id="emailInput" readonly type="email"/>
+      <i class="bx bx-edit edit-btn" data-target="emailInput"></i>
+      <button class="save-btn" data-target="emailInput">Save</button>
+    </div>
+    <p id="updateStatus" style="color: green;"></p>
+  </div>
+
+  <!--=============== ADD STUDIO BUTTON ===============-->
+  <div class="addBtn">
     <div class="studioBtn">
-        <button>Add new studio</button>
+      <button>Add new studio</button>
     </div>
-</div>
-<!--Add new studio area -->
-<div class="studioContainer">
+  </div>
+
+  <!--=============== STUDIOS DISPLAY AREA ===============-->
+  <div id="userStudios" class="row1container"></div>
+
+  <!--=============== STUDIO CREATION MODAL ===============-->
+  <div class="studioContainer">
     <div class="studioArea">
-        <span class="close">&times;</span>
-        <h2>Add new studio</h2>
-        <input type="text" placeholder="Studio's name" class="input-field">
-        <input type="text" placeholder="Insert the address" class="input-field">
-        <input type="text" placeholder="Area (in square meters)" class="input-field">
-        <input type="text" placeholder="Type of studio" class="input-field">
-        <input type="tel" placeholder="How many people can it accommodate?" class="input-field">
-        <p>It includes parking?</p>
-        <select name="" id="parking">
-            <option value="" selected disabled>-- Select an option --</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
-        <p>Is it accessible to public transport?</p>
-        <select name="" id="publicTransport">
-            <option value="" selected disabled>-- Select an option --</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
-        <p>Is it available to rent?</p>
-        <select name="" id="rent">
-            <option value="" selected disabled>-- Select an option --</option>
-            <option value="Yes">Yes</option>
-            <option value="No">No</option>
-        </select>
-        <p>The rental term:</p>
-        <select name="" id="rentalTerm">
-            <option value="" selected disabled>-- Select an option --</option>
-            <option value="hour">Per hour</option>
-            <option value="day">Per day</option>
-            <option value="week">Per week</option>  
-            <option value="month">Per month</option>  
-        </select>
-        <input type="text" placeholder="Insert the price per rental term" class="input-field">
-        <button class="addStudio">Add studio</button>
+      <span class="close">&times;</span>
+      <h2>Add new studio</h2>
+
+      <input class="input-field" placeholder="Studio's name" type="text" maxlength="100" required />
+      <input class="input-field" placeholder="Insert the address" type="text" maxlength="120" required />
+      <input class="input-field" placeholder="Area (in square meters)" type="number" min="1" required />
+
+      <select class="input-field" id="studioType" required>
+        <option value="" disabled selected hidden>Type of studio</option>
+        <option value="Art Studios">Art Studios</option>
+        <option value="Gaming Studios">Gaming Studios</option>
+        <option value="Music Studios">Music Studios</option>
+        <option value="Recording Studios">Recording Studios</option>
+        <option value="Rehearsal Studios">Rehearsal Studios</option>
+        <option value="Premium Studios">Premium Studios</option>
+      </select>
+
+      <input class="input-field" placeholder="How many people can it accommodate?" type="number" min="1" required />
+
+      <select class="input-field" id="parking" required>
+        <option value="" disabled selected hidden>It includes parking?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <select class="input-field" id="publicTransport" required>
+        <option value="" disabled selected hidden>Is it accessible to public transport?</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+
+      <select class="input-field" id="rentalTerm" required>
+        <option value="" disabled selected hidden>The rental term</option>
+        <option value="hour">Per hour</option>
+        <option value="day">Per day</option>
+        <option value="week">Per week</option>
+        <option value="month">Per month</option>
+      </select>
+
+      <input class="input-field" placeholder="Insert the price per rental term" type="number" min="0" step="any" required />
+
+      <button class="addStudio">Add studio</button>
     </div>
-</div>
+  </div>
+
+  <!--=============== JS SCRIPT ===============-->
+  <script src="script.js" defer></script>
 </body>
 </html>
