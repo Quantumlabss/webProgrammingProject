@@ -29,7 +29,7 @@
 | Search Bar                      |
 ---------------------------------*/
 .searchBar {
-  position: absolute;
+  position: fixed;
   margin-top: 20px;
   border: 1px solid black;
   width: 30%;
