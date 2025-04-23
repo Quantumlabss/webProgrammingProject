@@ -47,6 +47,7 @@ app.post('/signup', (req, res) => {
 });
 
 //------------------------------ Get User Data ------------------------------//
+
 app.get('/users/:email', (req, res) => {
   const safeEmail = req.params.email.replace(/[^a-zA-Z0-9]/g, '_');
   const filePath = path.join(usersDir, `${safeEmail}.json`);
@@ -64,6 +65,9 @@ app.get('/users/:email', (req, res) => {
     res.status(200).json(JSON.parse(data));
   });
 });
+
+
+
 
 //------------------------------ Save Studio Data ------------------------------//
 app.post('/add-studio', (req, res) => {

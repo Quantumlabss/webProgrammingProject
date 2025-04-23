@@ -176,6 +176,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+//-------------------------------login logic-------------------------------------------------------
+document.addEventListener('DOMContentLoaded', () => {
+    const loginBtn = document.querySelector('.login-btn');
+    const popup = document.querySelector('.popup');
+
+    // Handle login and redirect to correct page
+    if (loginBtn) {
+        loginBtn.addEventListener('click', () => {
+            const email = document.getElementById('loginEmail')?.value.trim();
+
+            if (!email) {
+                alert("Please enter your email.");
+                return;
+            }
+
+            fetch(`/users/${encodeURIComponent(email)}`)
+                .then(res => {
+                    if (!res.ok) {
+                        throw new Error('User not found.');
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    // Save user data to localStorage
+                    localStorage.setItem("loggedInUser", JSON.stringify({
+                        name: data.name,
+                        email: data.email,
+                        phone: data.phone,
+                        userType: data.userType
+                    }));
+
+                    // Log the welcome message
+                    alert(`Welcome ${data.userType === "studioOwner" ? "Studio Owner" : "User"}: ${data.name}`);
+
+                    // Hide the login popup
+                    popup.classList.remove('show');
+                    setTimeout(() => popup.style.display = 'none', 300);
+
+                    // Prepare redirect URL with user data
+                    const redirect = data.userType === "studioOwner" ? "studioOwnerPage.html" : "newUser.html";
+                    const { name, phone, email } = data;
+
+                    // Redirect with query parameters
+                    window.location.href = `${redirect}?name=${encodeURIComponent(name)}&phone=${encodeURIComponent(phone)}&email=${encodeURIComponent(email)}`;
+                })
+                .catch(err => {
+                    alert("Login failed: Account not found or server error.");
+                    console.error(err);
+                });
+        });
+    }
+});
+
+
+
+
 
 //--------------------------------- Signup logic (redirect after success) --------------------------------------------//
 document.addEventListener('DOMContentLoaded', () => {

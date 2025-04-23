@@ -2,8 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\css",
-    "\\js"
+    "\\js",
+    "\\studios",
+    "\\users"
   ],
-  "SelectedNode": "\\server.js",
+  "SelectedNode": "\\studios\\test_1744828464803.json",
   "PreviewInSolutionExplorer": false
 }
