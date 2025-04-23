@@ -17,119 +17,73 @@
   <header>
     <nav>
       <div class="menu">
-        <div class="logoImg">
-          <img src="./image/Screenshot 2025-04-23 133049.png" alt="">
+        <div class="logoImg"></div>
+
+                <!-- Profile avatar removed -->
+            </div>
+        </nav>
+    </header>
+
+    <!--=============== (DEPRECATED) LOGOUT POPUP ===============-->
+    <div class="popup" id="logoutPopup">
+        <div class="popup-content">
+            <button onclick="window.location.href='index.html'">Logout & Return Home</button>
+        </div>
+    </div>
+
+    <!--=============== MAIN CONTENT ===============-->
+    <div class="mainContent">
+        <!-- Add studio button -->
+        <div class="addBtn">
+            <div class="studioBtn">
+                <button>Add new studio</button>
+            </div>
         </div>
 
-        <!-- Profile avatar removed -->
-      </div>
-    </nav>
-  </header>
+        <!-- Page section title -->
+        <h1 class="myStudiosTitle">My Studios</h1>
 
-  <!--=============== (DEPRECATED) LOGOUT POPUP ===============-->
-  <div class="popup" id="logoutPopup">
-    <div class="popup-content">
-      <button onclick="window.location.href='index.html'">Logout & Return Home</button>
-    </div>
-  </div>
-
-  <!--=============== MAIN CONTENT ===============-->
-  <div class="mainContent">
-    <!-- Add studio button -->
-    <div class="addBtn">
-      <div class="studioBtn">
-        <button>Add new studio</button>
-      </div>
+        <!-- Studios list container -->
+        <div id="userStudios" class="row1container"></div>
     </div>
 
-    <!-- Page section title -->
-    <h1 class="myStudiosTitle">My Studios</h1>
+    <!--=============== SIDEBAR: PROFILE INFO + LOGOUT ===============-->
+    <div class="sidebar">
+        <div class="avatar" id="sidebarAvatar"></div>
+        <div class="welcome" id="welcomeTitle">Welcome</div>
 
-    <!-- Studios list container -->
-    <div id="userStudios" class="row1container"></div>
-  </div>
+        <div class="info-row">
+            <label for="nameInput">Name:</label>
+            <input id="nameInput" readonly type="text" />
+            <i class="bx bx-edit edit-btn" data-target="nameInput"></i>
+            <button class="save-btn" data-target="nameInput">Save</button>
+        </div>
 
-  <!--=============== SIDEBAR: PROFILE INFO + LOGOUT ===============-->
-  <div class="sidebar">
-    <div class="avatar" id="sidebarAvatar"></div>
-    <div class="welcome" id="welcomeTitle">Welcome</div>
+        <div class="info-row">
+            <label for="phoneInput">Phone:</label>
+            <input id="phoneInput" readonly type="tel" />
+            <i class="bx bx-edit edit-btn" data-target="phoneInput"></i>
+            <button class="save-btn" data-target="phoneInput">Save</button>
+        </div>
 
-    <div class="info-row">
-      <label for="nameInput">Name:</label>
-      <input id="nameInput" readonly type="text"/>
-      <i class="bx bx-edit edit-btn" data-target="nameInput"></i>
-      <button class="save-btn" data-target="nameInput">Save</button>
+        <div class="info-row">
+            <label for="emailInput">Email:</label>
+            <input id="emailInput" readonly type="email" />
+            <i class="bx bx-edit edit-btn" data-target="emailInput"></i>
+            <button class="save-btn" data-target="emailInput">Save</button>
+        </div>
+
+        <p id="updateStatus" style="color: green;"></p>
+
+        <!-- Logout button at bottom -->
+        <button class="logoutBtn" onclick="window.location.href='index.html'">Logout</button>
     </div>
 
-    <div class="info-row">
-      <label for="phoneInput">Phone:</label>
-      <input id="phoneInput" readonly type="tel"/>
-      <i class="bx bx-edit edit-btn" data-target="phoneInput"></i>
-      <button class="save-btn" data-target="phoneInput">Save</button>
-    </div>
+   
 
-    <div class="info-row">
-      <label for="emailInput">Email:</label>
-      <input id="emailInput" readonly type="email"/>
-      <i class="bx bx-edit edit-btn" data-target="emailInput"></i>
-      <button class="save-btn" data-target="emailInput">Save</button>
-    </div>
+    <!--=============== SCRIPT ===============-->
+    <script src="script.js" defer></script>
+    
 
-    <p id="updateStatus" style="color: green;"></p>
-
-    <!-- Logout button at bottom -->
-    <button class="logoutBtn" onclick="window.location.href='index.html'">Logout</button>
-  </div>
-
-  <!--=============== STUDIO CREATION POPUP MODAL ===============-->
-  <div class="studioContainer">
-    <div class="studioArea">
-      <span class="close">&times;</span>
-      <h2>Add new studio</h2>
-
-      <input class="input-field" placeholder="Studio's name" type="text" maxlength="100" required />
-      <input class="input-field" placeholder="Insert the address" type="text" maxlength="120" required />
-      <input class="input-field" placeholder="Area (in square meters)" type="number" min="1" required />
-
-      <select class="input-field" id="studioType" required>
-        <option value="" disabled selected hidden>Type of studio</option>
-        <option value="Art Studios">Art Studios</option>
-        <option value="Gaming Studios">Gaming Studios</option>
-        <option value="Music Studios">Music Studios</option>
-        <option value="Recording Studios">Recording Studios</option>
-        <option value="Rehearsal Studios">Rehearsal Studios</option>
-        <option value="Premium Studios">Premium Studios</option>
-      </select>
-
-      <input class="input-field" placeholder="How many people can it accommodate?" type="number" min="1" required />
-
-      <select class="input-field" id="parking" required>
-        <option value="" disabled selected hidden>It includes parking?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-
-      <select class="input-field" id="publicTransport" required>
-        <option value="" disabled selected hidden>Is it accessible to public transport?</option>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-
-      <select class="input-field" id="rentalTerm" required>
-        <option value="" disabled selected hidden>The rental term</option>
-        <option value="hour">Per hour</option>
-        <option value="day">Per day</option>
-        <option value="week">Per week</option>
-        <option value="month">Per month</option>
-      </select>
-
-      <input class="input-field" placeholder="Insert the price per rental term" type="number" min="0" step="any" required />
-
-      <button class="addStudio">Add studio</button>
-    </div>
-  </div>
-
-  <!--=============== SCRIPT ===============-->
-  <script src="script.js" defer></script>
 </body>
 </html>

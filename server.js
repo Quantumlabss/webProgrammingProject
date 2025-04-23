@@ -143,7 +143,38 @@ app.put('/update-studio/:email/:filename', (req, res) => {
   });
 });
 
+//-----edit studio-----
+// PUT to update studio
+app.put('/edit-studio', (req, res) => {
+    const { filename, name, address } = req.body;
+    const filePath = path.join(__dirname, 'studios', filename);
+
+    fs.readFile(filePath, 'utf8', (err, jsonData) => {
+        if (err) return res.status(500).json({ message: 'Read error' });
+
+        const studioData = JSON.parse(jsonData);
+        studioData.name = name;
+        studioData.address = address;
+
+        fs.writeFile(filePath, JSON.stringify(studioData, null, 2), (err) => {
+            if (err) return res.status(500).json({ message: 'Write error' });
+            res.json({ message: 'Studio updated successfully' });
+        });
+    });
+});
+
+// DELETE to delete studio
+app.delete('/delete-studio/:filename', (req, res) => {
+    const filePath = path.join(__dirname, 'studios', req.params.filename);
+
+    fs.unlink(filePath, (err) => {
+        if (err) return res.status(500).json({ message: 'Delete failed' });
+        res.json({ message: 'Studio deleted successfully' });
+    });
+});
+
 //------------------------------ Start Server ------------------------------//
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+
