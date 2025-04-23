@@ -9,13 +9,16 @@
     justify-content: space-between;
     align-items: center;
 }
-
+body {
+    background-color: #feeed9;
+  }
 .logoImg {
-    width: 70px;
-    height: 70px;
-    border-radius: 35px;
-    background-color: black;
     margin: 20px 10px 10px 70px;
+  }
+
+.logoImg img {
+    width: 400px;
+    height: 100px;
 }
 
 .searchBar {
