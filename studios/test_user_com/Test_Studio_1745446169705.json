@@ -1,0 +1,13 @@
+{
+  "studioName": "Test Studio",
+  "address": "6th Avenue, Downtown",
+  "area": "100",
+  "type": "Gaming Studios",
+  "capacity": "150",
+  "parking": "Yes",
+  "publicTransport": "Yes",
+  "rentalTerm": "hour",
+  "price": "400",
+  "email": "test@user.com",
+  "timestamp": 1745446169705
+}

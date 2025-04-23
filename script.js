@@ -310,4 +310,6 @@ function loadUserStudios(email) {
       container.innerHTML = "<p>Error loading studios.</p>";
       console.error(err);
     });
+
+    
 }
