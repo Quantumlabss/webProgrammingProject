@@ -344,6 +344,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  fetch('/all-studios')
+    .then(response => response.json())
+    .then(studios => {
+      const container = document.getElementById('studioList');
+      const searchInput = document.getElementById('studioSearch');
+
+      function displayStudios(filteredStudios) {
+        container.innerHTML = '';
+        if (filteredStudios.length === 0) {
+          container.innerHTML = '<p>No studios found.</p>';
+          return;
+        }
+        filteredStudios.forEach(studio => {
+          const studioDiv = document.createElement('div');
+          studioDiv.className = 'studio-card';
+          studioDiv.innerHTML = `
+            <h3>${studio.studioName}</h3>
+            <p><strong>Address:</strong> ${studio.address}</p>
+            <p><strong>Area:</strong> ${studio.area} m²</p>
+            <p><strong>Price:</strong> $${studio.price}</p>
+            <p><strong>Type:</strong> ${studio.type}</p>
+            <p><strong>Available:</strong> ${studio.available ? 'Yes' : 'No'}</p>
+          `;
+          container.appendChild(studioDiv);
+        });
+      }
+
+      displayStudios(studios); // display all initially
+
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filtered = studios.filter(studio =>
+          studio.studioName.toLowerCase().includes(searchTerm)
+        );
+        displayStudios(filtered);
+      });
+    })
+    .catch(err => {
+      console.error('Error loading studios:', err);
+    });
+});
+
 
 //--------EDIT--------
 document.addEventListener('DOMContentLoaded', () => {
