@@ -288,25 +288,7 @@ function loadUserStudios(email) {
         container.innerHTML = "<p>No studios added yet.</p>";
         return;
       }
-      /*
-      studios.forEach(studio => {
-        const card = document.createElement("div");
-        card.classList.add("storeStudio");
-
-        card.innerHTML = `
-          <h2>${studio.studioName}</h2>
-          <p>${studio.address}</p>
-          <p>${studio.area} m² | ${studio.type}</p>
-          <p>Capacity: ${studio.capacity}</p>
-          <p>Parking: ${studio.parking}</p>
-          <p>Transport: ${studio.publicTransport}</p>
-          <p>Term: ${studio.rentalTerm}</p>
-          <p>Price: $${studio.price}</p>
-        `;
-
-        container.appendChild(card);
-      });
-      */
+      
     })
     .catch(err => {
       container.innerHTML = "<p>Error loading studios.</p>";
@@ -437,7 +419,7 @@ function setupStudioButtons() {
                 .then(res => res.json())
                 .then(result => {
                     alert(result.message);
-                    location.reload(); // Refresh the page to reflect deletion
+                    location.reload();
                 })
                 .catch(err => {
                     console.error('Delete failed:', err);
@@ -452,7 +434,7 @@ function setupStudioButtons() {
         button.addEventListener('click', () => {
             const filename = button.dataset.filename;
             const email = button.dataset.email;
-            // You can replace this with a modal later
+            
             const newName = prompt("Enter new studio name:");
             const newAddress = prompt("Enter new address:");
 
