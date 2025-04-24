@@ -3,6 +3,60 @@
     padding: 0;
     font-family: "Raleway", sans-serif;
 }
+/* Container for each studio card */
+.studio-card {
+    background: #f5f5f5;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container holding all studio cards */
+#userStudios {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/* Studio details styling */
+.studio-card h3 {
+    margin: 0 0 8px;
+    font-size: 1.2em;
+}
+
+.studio-card p {
+    margin: 4px 0;
+}
+
+/* Button group at bottom of card */
+.studio-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+    .studio-actions button {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .studio-actions .edit-btn {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .studio-actions .delete-btn {
+        background-color: #dc3545;
+        color: white;
+    }
+
 
 .menu {
     display: flex;

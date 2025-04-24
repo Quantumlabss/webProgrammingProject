@@ -120,6 +120,36 @@ app.get('/studios/:email', (req, res) => {
   }
 });
 
+//get different studios
+// Get all studios from all users
+app.get('/all-studios', (req, res) => {
+    const allStudios = [];
+
+    fs.readdir(studiosDir, (err, userFolders) => {
+        if (err) {
+            console.error("Error reading studios directory:", err);
+            return res.status(500).json({ message: "Error reading studios directory" });
+        }
+
+        userFolders.forEach(folder => {
+            const folderPath = path.join(studiosDir, folder);
+            if (fs.statSync(folderPath).isDirectory()) {
+                const files = fs.readdirSync(folderPath);
+                files.forEach(file => {
+                    if (file.endsWith('.json')) {
+                        const filePath = path.join(folderPath, file);
+                        const content = fs.readFileSync(filePath, 'utf8');
+                        allStudios.push(JSON.parse(content));
+                    }
+                });
+            }
+        });
+
+        res.status(200).json(allStudios);
+    });
+});
+
+
 //------------------------------ Update Studio Data ------------------------------//
 app.put('/update-studio/:email/:filename', (req, res) => {
   const { email, filename } = req.params;
@@ -164,14 +194,20 @@ app.put('/edit-studio', (req, res) => {
 });
 
 // DELETE to delete studio
-app.delete('/delete-studio/:filename', (req, res) => {
-    const filePath = path.join(__dirname, 'studios', req.params.filename);
+app.delete('/delete-studio/:email/:filename', (req, res) => {
+    const safeEmail = req.params.email.replace(/[^a-zA-Z0-9]/g, '_');
+    const filename = req.params.filename.replace(/[^a-zA-Z0-9_]/g, '');
+    const filePath = path.join(__dirname, 'studios', safeEmail, `${filename}.json`);
 
     fs.unlink(filePath, (err) => {
-        if (err) return res.status(500).json({ message: 'Delete failed' });
+        if (err) {
+            console.error('Delete error:', err);
+            return res.status(500).json({ message: 'Delete failed' });
+        }
         res.json({ message: 'Studio deleted successfully' });
     });
 });
+
 
 //------------------------------ Start Server ------------------------------//
 app.listen(PORT, () => {
